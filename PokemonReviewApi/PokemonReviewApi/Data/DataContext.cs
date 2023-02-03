@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PokemonReviewApi.Models;
+using PokemonReviewApi.Entities;
 using System.Diagnostics.Metrics;
 
 namespace PokemonReviewApi.Data
