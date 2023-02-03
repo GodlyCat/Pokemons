@@ -1,9 +1,8 @@
 ﻿namespace PokemonReviewApi.Dto
 {
-    public class PokemonDto
+    public class CategoryViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime BirthDate { get; set; }
     }
 }

@@ -2,11 +2,11 @@
 
 namespace PokemonReviewApi.Dto
 {
-    public class ReviewerDto
+    public class OwnerViewModel
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public ICollection<Review> Reviews { get; set; }
+        public string Team{ get; set; }
     }
 }

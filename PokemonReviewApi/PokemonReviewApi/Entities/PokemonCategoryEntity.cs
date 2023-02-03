@@ -2,12 +2,12 @@
 
 namespace PokemonReviewApi.Models
 {
-    public class PokemonCategory //join table
+    public class PokemonCategoryEntity //join table
     {
         public int PokemonId { get; set; }
         public int CategoryId { get; set; }
-        public Pokemon Pokemon { get; set; }
-        public Category Category { get; set; }
+        public PokemonEntity Pokemon { get; set; }
+        public CategoryEntity Category { get; set; }
 
     }
 }

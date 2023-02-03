@@ -1,9 +1,9 @@
 ﻿namespace PokemonReviewApi.Models
 {
-    public class Country
+    public class CategoryEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Owner> Owners { get; set; } //one to many
+        public ICollection<PokemonCategoryEntity> PokemonCategories { get; set; }
     }
 }
