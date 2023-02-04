@@ -1,4 +1,4 @@
-﻿namespace PokemonReviewApi.Dto
+﻿namespace PokemonReviewApi.ViewModels
 {
     public class PokemonViewModel
     {

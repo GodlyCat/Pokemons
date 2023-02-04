@@ -1,4 +1,4 @@
-﻿namespace PokemonReviewApi.Models
+﻿namespace PokemonReviewApi.Entities
 {
     public class CategoryEntity
     {

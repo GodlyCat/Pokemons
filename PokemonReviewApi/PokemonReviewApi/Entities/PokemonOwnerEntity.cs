@@ -1,5 +1,4 @@
-﻿using PokemonReviewApi.Models;
-
+﻿
 namespace PokemonReviewApi.Entities
 {
     public class PokemonOwnerEntity //join table

@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace PokemonReviewApi.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class _3dwffs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,25 +42,12 @@ namespace PokemonReviewApi.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Health = table.Column<int>(type: "integer", nullable: false),
+                    Damage = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pokemon", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Reviewers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reviewers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,7 +58,7 @@ namespace PokemonReviewApi.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
-                    Gym = table.Column<string>(type: "text", nullable: false),
+                    Team = table.Column<string>(type: "text", nullable: false),
                     CountryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -106,35 +92,6 @@ namespace PokemonReviewApi.Migrations
                         name: "FK_PokemonCategories_Pokemon_PokemonId",
                         column: x => x.PokemonId,
                         principalTable: "Pokemon",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Reviews",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Text = table.Column<string>(type: "text", nullable: false),
-                    Rating = table.Column<int>(type: "integer", nullable: false),
-                    ReviewerId = table.Column<int>(type: "integer", nullable: false),
-                    PokemonId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reviews", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Reviews_Pokemon_PokemonId",
-                        column: x => x.PokemonId,
-                        principalTable: "Pokemon",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Reviews_Reviewers_ReviewerId",
-                        column: x => x.ReviewerId,
-                        principalTable: "Reviewers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -177,16 +134,6 @@ namespace PokemonReviewApi.Migrations
                 name: "IX_PokemonOwners_OwnerId",
                 table: "PokemonOwners",
                 column: "OwnerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Reviews_PokemonId",
-                table: "Reviews",
-                column: "PokemonId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Reviews_ReviewerId",
-                table: "Reviews",
-                column: "ReviewerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -198,9 +145,6 @@ namespace PokemonReviewApi.Migrations
                 name: "PokemonOwners");
 
             migrationBuilder.DropTable(
-                name: "Reviews");
-
-            migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
@@ -208,9 +152,6 @@ namespace PokemonReviewApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Pokemon");
-
-            migrationBuilder.DropTable(
-                name: "Reviewers");
 
             migrationBuilder.DropTable(
                 name: "Countries");
