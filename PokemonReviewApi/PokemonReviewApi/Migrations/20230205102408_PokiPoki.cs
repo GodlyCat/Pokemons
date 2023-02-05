@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace PokemonReviewApi.Migrations
 {
-    public partial class _3dwffs : Migration
+    public partial class PokiPoki : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -118,6 +118,46 @@ namespace PokemonReviewApi.Migrations
                         principalTable: "Pokemon",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Electric" },
+                    { 2, "Dark" },
+                    { 3, "Flying" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Countries",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Kanto" },
+                    { 2, "Aroyan" },
+                    { 3, "Evelion" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Pokemon",
+                columns: new[] { "Id", "Damage", "Health", "Name" },
+                values: new object[,]
+                {
+                    { 1, 10, 100, "Poki-Kun" },
+                    { 2, 5, 250, "Hexor" },
+                    { 3, 2, 150, "Gringo" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Owners",
+                columns: new[] { "Id", "CountryId", "FirstName", "LastName", "Team" },
+                values: new object[,]
+                {
+                    { 1, 1, "Joe", "Biden", "Valar" },
+                    { 2, 2, "Steven", "Seagull", "Mystico" },
+                    { 3, 3, "Peter", "Griffin", "Instincto" }
                 });
 
             migrationBuilder.CreateIndex(

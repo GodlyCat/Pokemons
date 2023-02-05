@@ -19,7 +19,6 @@ namespace PokemonReviewApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) // for many to many (customazation w/out bd)
         {
-            
             modelBuilder.Entity<PokemonCategoryEntity>()
                 .HasKey(pc => new { pc.PokemonId, pc.CategoryId });
             modelBuilder.Entity<PokemonCategoryEntity>()
@@ -46,10 +45,6 @@ namespace PokemonReviewApi.Data
             modelBuilder.Entity<CountryEntity>().HasData(InitialData.GetCountries());
             modelBuilder.Entity<PokemonEntity>().HasData(InitialData.GetPokemons());
             modelBuilder.Entity<OwnerEntity>().HasData(InitialData.GetOwners());
-
-
         }
-        
-
     }
 }

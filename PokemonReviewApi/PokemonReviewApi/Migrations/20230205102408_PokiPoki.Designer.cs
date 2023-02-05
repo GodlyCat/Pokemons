@@ -11,8 +11,8 @@ using PokemonReviewApi.Data;
 namespace PokemonReviewApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230204191634_ejhrfbjyfhbkshfkuhfjks")]
-    partial class ejhrfbjyfhbkshfkuhfjks
+    [Migration("20230205102408_PokiPoki")]
+    partial class PokiPoki
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,6 +72,23 @@ namespace PokemonReviewApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Kanto"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Aroyan"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Evelion"
+                        });
                 });
 
             modelBuilder.Entity("PokemonReviewApi.Entities.OwnerEntity", b =>
@@ -102,6 +119,32 @@ namespace PokemonReviewApi.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Owners");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CountryId = 1,
+                            FirstName = "Joe",
+                            LastName = "Biden",
+                            Team = "Valar"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CountryId = 2,
+                            FirstName = "Steven",
+                            LastName = "Seagull",
+                            Team = "Mystico"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CountryId = 3,
+                            FirstName = "Peter",
+                            LastName = "Griffin",
+                            Team = "Instincto"
+                        });
                 });
 
             modelBuilder.Entity("PokemonReviewApi.Entities.PokemonCategoryEntity", b =>
@@ -140,6 +183,29 @@ namespace PokemonReviewApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pokemon");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Damage = 10,
+                            Health = 100,
+                            Name = "Poki-Kun"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Damage = 5,
+                            Health = 250,
+                            Name = "Hexor"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Damage = 2,
+                            Health = 150,
+                            Name = "Gringo"
+                        });
                 });
 
             modelBuilder.Entity("PokemonReviewApi.Entities.PokemonOwnerEntity", b =>
