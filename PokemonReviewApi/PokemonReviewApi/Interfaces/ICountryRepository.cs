@@ -5,14 +5,12 @@ namespace PokemonReviewApi.Interfaces
 {
     public interface ICountryRepository
     {
-        ICollection<CountryEntity> GetCountries();
-        CountryEntity GetCountry(int id);
-        CountryEntity GetCountryByOwner(int ownerId);
-        ICollection<OwnerEntity> GetOwnersFromACountry(int countryId);
+        IEnumerable<CountryEntity> GetCountries();
+        CountryEntity? GetCountryById(int id);
+        CountryEntity? GetCountryByOwnerId(int ownerId);
         bool CountryExists(int id);
-        bool CreateCountry(CountryEntity country); //for create method, passing entire entity
-        bool UpdateCountry(CountryEntity country);
-        bool DeleteCountry(CountryEntity country);
-        bool Save();
+        CountryEntity CreateCountry(CountryEntity createdCountry); //for create method, passing entire entity
+        CountryEntity UpdateCountry(CountryEntity updatedCountry);
+        void DeleteCountry(CountryEntity deletedCountry);
     }
 }

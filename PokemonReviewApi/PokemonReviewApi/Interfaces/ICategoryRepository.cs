@@ -3,13 +3,11 @@ namespace PokemonReviewApi.Interfaces
 {
     public interface ICategoryRepository
     {
-        ICollection<CategoryEntity> GetCategories();
-        CategoryEntity GetCategory(int id);
-        ICollection<PokemonEntity> GetPokemonByCategory(int categoryId);
+        IEnumerable<CategoryEntity> GetCategories();
+        CategoryEntity? GetCategoryById(int id);
         bool CategoryExists(int Id); //for confirmation
-        bool CreateCategory(CategoryEntity category); //for create method, passing entire entity
-        bool UpdateCategory(CategoryEntity category);
-        bool DeleteCategory(CategoryEntity category);
-        bool Save();
+        CategoryEntity CreateCategory(CategoryEntity createdCategory); //for create method, passing entire entity
+        CategoryEntity UpdateCategory(CategoryEntity updatedCategory);
+        void DeleteCategory(CategoryEntity deletedCategory);
     }
 }

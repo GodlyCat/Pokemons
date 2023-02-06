@@ -3,14 +3,13 @@ namespace PokemonReviewApi.Interfaces
 {
     public interface IOwnerRepository
     {
-        ICollection<OwnerEntity> GetOwners(); //ICollection is intemediate between IEnumerable and a IList (IEnumerable is more bare-boned version)
-        OwnerEntity GetOwner(int ownerId);
-        ICollection<OwnerEntity> GetOwnerOfAPokemon(int pokeId);
-        ICollection<PokemonEntity> GetPokemonByOwner(int ownerId);
+        IEnumerable<OwnerEntity> GetOwners(); //ICollection is intemediate between IEnumerable and a IList (IEnumerable is more bare-boned version)
+        OwnerEntity? GetOwnerById(int ownerId);
+        IEnumerable<OwnerEntity> GetOwnersByPokeId(int pokeId);
+        IEnumerable<OwnerEntity> GetOwnersByCountryId(int countryId);  //moved this from ICountryRepo
         bool OwnerExists(int ownerId);
-        bool UpdateOwner(OwnerEntity owner);
-        bool CreateOwner(OwnerEntity owner); //for create method, passing entire entity
-        bool DeleteOwner(OwnerEntity owner);
-        bool Save();
+        OwnerEntity UpdateOwner(OwnerEntity updatedOwner);
+        OwnerEntity CreateOwner(OwnerEntity createdOwner); //for create method, passing entire entity
+        void DeleteOwner(OwnerEntity deletedOwner);
     }
 }
