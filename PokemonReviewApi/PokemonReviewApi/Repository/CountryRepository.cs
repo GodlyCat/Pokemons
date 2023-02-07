@@ -38,7 +38,7 @@ namespace PokemonReviewApi.Repository
 
         public CountryEntity? GetCountryById(int id)
         {
-            return _context.Countries.Where(cou => cou.Id == id).FirstOrDefault();
+            return _context.Countries.FirstOrDefault(cou => cou.Id == id);
         }
 
         public CountryEntity? GetCountryByOwnerId(int ownerId)

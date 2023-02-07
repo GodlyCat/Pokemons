@@ -37,7 +37,7 @@ namespace PokemonReviewApi.Repository
 
         public CategoryEntity? GetCategoryById(int id)
         {
-            return _context.Categories.Where(e => e.Id == id).FirstOrDefault();
+            return _context.Categories.FirstOrDefault(e => e.Id == id);
         }
 
         public CategoryEntity UpdateCategory(CategoryEntity updatedCategory)

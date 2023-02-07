@@ -27,7 +27,7 @@ namespace PokemonReviewApi.Repository
 
         public OwnerEntity? GetOwnerById(int ownerId)
         {
-            return _context.Owners.Where(o => o.Id == ownerId).FirstOrDefault();
+            return _context.Owners.FirstOrDefault(o => o.Id == ownerId);
         }
 
         public IEnumerable<OwnerEntity> GetOwners()

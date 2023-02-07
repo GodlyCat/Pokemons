@@ -14,8 +14,8 @@ namespace PokemonReviewApi.Repository
         }
         public PokemonEntity CreatePokemon(int ownerId, int categoryId, PokemonEntity createdPokemon)
         {
-            var pokemonOwnerEntity = _context.Owners.Where(a => a.Id == ownerId).FirstOrDefault();
-            var category = _context.Categories.Where(a => a.Id == categoryId).FirstOrDefault();
+            var pokemonOwnerEntity = _context.Owners.FirstOrDefault(a => a.Id == ownerId);
+            var category = _context.Categories.FirstOrDefault(a => a.Id == categoryId);
             var pokemonOwner = new PokemonOwnerEntity
             {
                 Owner = pokemonOwnerEntity,
@@ -42,24 +42,22 @@ namespace PokemonReviewApi.Repository
 
         public PokemonEntity? GetPokemonById(int id)
         {
-            return _context.Pokemon.Where(p => p.Id == id).FirstOrDefault();
+            return _context.Pokemon.FirstOrDefault(p => p.Id == id);
         }
 
         public PokemonEntity? GetPokemonByName(string name)
         {
-            return _context.Pokemon.Where(p => p.Name == name).FirstOrDefault();
+            return _context.Pokemon.FirstOrDefault(p => p.Name == name);
         }
 
         public int GetPokemonDamage(int pokeId)
         {
-            //var Damage = _context.Pokemon.Where(p => p.Id == pokeId); //I'm retarded
-            //return (int)Damage.Sum(d => d.Damage);
-            return _context.Pokemon.Where(p => p.Id == pokeId).Sum(x=>x.Damage);
+            return _context.Pokemon.FirstOrDefault(p => p.Id == pokeId).Damage;
         }
 
         public int GetPokemonHealth(int pokeId)
         {
-            return _context.Pokemon.Where(p => p.Id == pokeId).Sum(x => x.Health);
+            return _context.Pokemon.FirstOrDefault(p => p.Id == pokeId).Health;
         }
 
         public IEnumerable<PokemonEntity> GetPokemons()
