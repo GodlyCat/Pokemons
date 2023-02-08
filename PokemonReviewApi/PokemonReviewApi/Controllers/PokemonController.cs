@@ -29,6 +29,7 @@ namespace PokemonReviewApi.Controllers
             var pokemons = _mapper.Map<List<PokemonViewModel>>(_pokemonRepository.GetPokemons()); //without automapper - var pokemons = _pokemonRepository.GetPokemons()
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             return Ok(pokemons);
         }
 
@@ -43,6 +44,7 @@ namespace PokemonReviewApi.Controllers
             var pokemon = _mapper.Map<PokemonViewModel>(_pokemonRepository.GetPokemonById(pokeId));
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             return Ok(pokemon);
         }
 
@@ -71,6 +73,7 @@ namespace PokemonReviewApi.Controllers
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             return Ok(owner);
         }
 
@@ -126,6 +129,7 @@ namespace PokemonReviewApi.Controllers
         {
             if (pokemonCreate == null)
                 return BadRequest(ModelState);
+
             var pokemons = _pokemonRepository.GetPokemons()
                 .Where(c => c.Name.Trim().ToUpper() == pokemonCreate.Name.TrimEnd().ToUpper())
                 .FirstOrDefault();
@@ -155,10 +159,13 @@ namespace PokemonReviewApi.Controllers
 
             if (pokeId != updatedPokemon.Id)
                 return BadRequest(ModelState);
+
             if (!_pokemonRepository.PokemonExists(pokeId))
                 return NotFound();
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             var pokemonMap = _mapper.Map<PokemonEntity>(updatedPokemon);
             _pokemonRepository.UpdatePokemon(ownerId, catId, pokemonMap);
             return NoContent();
@@ -177,6 +184,7 @@ namespace PokemonReviewApi.Controllers
             var pokemonToDelete = _pokemonRepository.GetPokemonById(pokeId);
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             _pokemonRepository.DeletePokemon(pokemonToDelete);
             return NoContent();
         }

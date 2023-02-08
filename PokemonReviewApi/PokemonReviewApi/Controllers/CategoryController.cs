@@ -26,6 +26,7 @@ namespace PokemonReviewApi.Controllers
             var categories = _mapper.Map<List<CategoryViewModel>>(_categoryRepository.GetCategories()); //without automapper - var categories = _categoryRepository.GetCategory()
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             return Ok(categories);
         }
 
@@ -39,7 +40,8 @@ namespace PokemonReviewApi.Controllers
 
             var category = _mapper.Map<CategoryViewModel>(_categoryRepository.GetCategoryById(categoryId));
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);          //same spec return type 
+                return BadRequest(ModelState);          //same spec return type
+
             return Ok(category);
         }
 
@@ -50,10 +52,9 @@ namespace PokemonReviewApi.Controllers
         {
             if (categoryCreate == null)
                 return BadRequest(ModelState);
-            var category = _categoryRepository.GetCategories()
-                .Where(c => c.Name.Trim().ToUpper() == categoryCreate.Name.TrimEnd().ToUpper())
-                .FirstOrDefault();
 
+            var category = _categoryRepository.GetCategories()
+                .FirstOrDefault(c => c.Name.Trim().ToUpper() == categoryCreate.Name.TrimEnd().ToUpper());
             if (category != null)
             {
                 ModelState.AddModelError("", "Category already Exists");
@@ -65,8 +66,6 @@ namespace PokemonReviewApi.Controllers
 
             var categoryMap = _mapper.Map<CategoryEntity>(categoryCreate);
             _categoryRepository.CreateCategory(categoryMap);
-
-
             return Ok("Successfully created");
         }
 
@@ -81,10 +80,13 @@ namespace PokemonReviewApi.Controllers
 
             if (categoryId != updatedCategory.Id)
                 return BadRequest(ModelState);
+
             if (!_categoryRepository.CategoryExists(categoryId))
                 return NotFound();
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             var categoryMap = _mapper.Map<CategoryEntity>(updatedCategory);
             _categoryRepository.UpdateCategory(categoryMap);
            
@@ -104,8 +106,8 @@ namespace PokemonReviewApi.Controllers
             var categoryToDelete = _categoryRepository.GetCategoryById(categoryId);
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             _categoryRepository.DeleteCategory(categoryToDelete);
-           
             return NoContent();
         }
     }

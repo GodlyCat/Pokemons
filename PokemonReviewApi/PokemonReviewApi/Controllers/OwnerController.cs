@@ -30,6 +30,7 @@ namespace PokemonReviewApi.Controllers
             var owners = _mapper.Map<List<OwnerViewModel>>(_ownerRepository.GetOwners());
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             return Ok(owners);
         }
 
@@ -44,6 +45,7 @@ namespace PokemonReviewApi.Controllers
             var owners = _mapper.Map<List<OwnerViewModel>>(_ownerRepository.GetOwnersByPokeId(pokeId));
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             return Ok(owners);
         }
 
@@ -58,6 +60,7 @@ namespace PokemonReviewApi.Controllers
             var owners = _mapper.Map<List<OwnerViewModel>>(_ownerRepository.GetOwnersByCountryId(countryId));
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             return Ok(owners);
         }
 
@@ -72,6 +75,7 @@ namespace PokemonReviewApi.Controllers
             var owner = _mapper.Map<OwnerViewModel>(_ownerRepository.GetOwnerById(ownerId));
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);          //same spec return type fromIActionResult
+
             return Ok(owner);
         }
 
@@ -114,10 +118,13 @@ namespace PokemonReviewApi.Controllers
 
             if (ownerId != updatedOwner.Id)
                 return BadRequest(ModelState);
+
             if (!_ownerRepository.OwnerExists(ownerId))
                 return NotFound();
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             var ownerMap = _mapper.Map<OwnerEntity>(updatedOwner);
             _ownerRepository.UpdateOwner(ownerMap);
             return NoContent();
@@ -136,6 +143,7 @@ namespace PokemonReviewApi.Controllers
             var ownerToDelete = _ownerRepository.GetOwnerById(ownerId);
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             _ownerRepository.DeleteOwner(ownerToDelete);
             return NoContent();
         }

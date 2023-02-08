@@ -27,6 +27,7 @@ namespace PokemonReviewApi.Controllers
             var countries = _mapper.Map<List<CountryViewModel>>(_countryRepository.GetCountries()); 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             return Ok(countries);
         }
 
@@ -40,7 +41,8 @@ namespace PokemonReviewApi.Controllers
 
             var country = _mapper.Map<CountryViewModel>(_countryRepository.GetCountryById(countryId));
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);          
+                return BadRequest(ModelState);        
+            
             return Ok(country);
         }
 
@@ -52,6 +54,7 @@ namespace PokemonReviewApi.Controllers
             var country = _mapper.Map<CountryViewModel>(_countryRepository.GetCountryByOwnerId(ownerId));
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             return Ok(country);
         }
 
@@ -62,9 +65,9 @@ namespace PokemonReviewApi.Controllers
         {
             if (countryCreate == null)
                 return BadRequest(ModelState);
+
             var country = _countryRepository.GetCountries()
-                .Where(c => c.Name.Trim().ToUpper() == countryCreate.Name.TrimEnd().ToUpper())
-                .FirstOrDefault();
+                .FirstOrDefault(c => c.Name.Trim().ToUpper() == countryCreate.Name.TrimEnd().ToUpper());
 
             if (country != null)
             {
@@ -77,7 +80,7 @@ namespace PokemonReviewApi.Controllers
 
             var countryMap = _mapper.Map<CountryEntity>(countryCreate);
             _countryRepository.CreateCountry(countryMap);
-            
+
             return Ok("Successfully created");
         }
 
@@ -92,10 +95,13 @@ namespace PokemonReviewApi.Controllers
 
             if (countryId != updatedCountry.Id)
                 return BadRequest(ModelState);
+
             if (!_countryRepository.CountryExists(countryId))
                 return NotFound();
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             var countryMap = _mapper.Map<CountryEntity>(updatedCountry);
             _countryRepository.UpdateCountry(countryMap);
            
@@ -115,6 +121,7 @@ namespace PokemonReviewApi.Controllers
             var countryToDelete = _countryRepository.GetCountryById(countryId);
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             _countryRepository.DeleteCountry(countryToDelete);
             
             return NoContent();
