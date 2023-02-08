@@ -8,8 +8,8 @@ namespace PokemonReviewApi.Interfaces
         IEnumerable<OwnerEntity> GetOwnersByPokeId(int pokeId);
         IEnumerable<OwnerEntity> GetOwnersByCountryId(int countryId);  //moved this from ICountryRepo
         bool OwnerExists(int ownerId);
-        OwnerEntity UpdateOwner(OwnerEntity updatedOwner);
         OwnerEntity CreateOwner(OwnerEntity createdOwner); //for create method, passing entire entity
+        OwnerEntity UpdateOwner(OwnerEntity updatedOwner);
         void DeleteOwner(OwnerEntity deletedOwner);
     }
 }
