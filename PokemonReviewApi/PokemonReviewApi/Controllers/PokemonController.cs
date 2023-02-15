@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PokemonReviewApi.ViewModels;
+using PokemonReviewApi.Repository;
 using PokemonReviewApi.Interfaces;
 using PokemonReviewApi.Entities;
-using PokemonReviewApi.Repository;
+using PokemonReviewApi.Services.IServices;
 
 namespace PokemonReviewApi.Controllers
 {
@@ -12,181 +13,117 @@ namespace PokemonReviewApi.Controllers
     public class PokemonController : Controller
     {
         private readonly IPokemonRepository _pokemonRepository;
+        private readonly IPokemonService _pokemonService;
         private readonly IOwnerRepository _ownerRepository;
         private readonly IMapper _mapper;
 
-        public PokemonController(IPokemonRepository pokemonRepository, IOwnerRepository ownerRepository, IMapper mapper)
+        public PokemonController(IPokemonRepository pokemonRepository, IPokemonService pokemonService, IMapper mapper)
         {
             _pokemonRepository = pokemonRepository;
-            _ownerRepository = ownerRepository;
+            _pokemonService = pokemonService;
             _mapper = mapper;
         }
         
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<PokemonEntity>))]
-        public IActionResult GetPokemons()
+        public List<PokemonViewModel> GetPokemons()
         {
             var pokemons = _mapper.Map<List<PokemonViewModel>>(_pokemonRepository.GetPokemons()); //without automapper - var pokemons = _pokemonRepository.GetPokemons()
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
 
-            return Ok(pokemons);
+            return pokemons;
         }
 
         [HttpGet("{pokeId:int}")]
         [ProducesResponseType(200, Type = typeof(PokemonEntity))]
         [ProducesResponseType(400)]
-        public IActionResult GetPokemon(int pokeId)
+        public PokemonShortViewModel GetPokemon(int pokeId)
         {
-            if (!_pokemonRepository.PokemonExists(pokeId))
-                return NotFound();
 
-            var pokemon = _mapper.Map<PokemonViewModel>(_pokemonRepository.GetPokemonById(pokeId));
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            var pokemon = _mapper.Map<PokemonShortViewModel>(_pokemonRepository.GetPokemonById(pokeId));
 
-            return Ok(pokemon);
+            return pokemon;
         }
 
         [HttpGet("pokemon/{categoryId}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<PokemonEntity>))]
         [ProducesResponseType(400)]
-        public IActionResult GetPokemonByCategoryId(int categoryId)
+        public List<PokemonEntity> GetPokemonByCategoryId(int categoryId)
         {
-            var pokemons = _mapper.Map<List<PokemonViewModel>>(_pokemonRepository.GetPokemonsByCategoryId(categoryId));
-            if (!ModelState.IsValid)
-                return BadRequest();
+            var pokemons = _mapper.Map<List<PokemonEntity>>(_pokemonRepository.GetPokemonsByCategoryId(categoryId));
 
-            return Ok(pokemons);
+            return pokemons;
         }
 
         [HttpGet("{ownerId}/pokemon")]
         [ProducesResponseType(200, Type = typeof(OwnerEntity))]
         [ProducesResponseType(400)]
-        public IActionResult GetPokemonByOwner(int ownerId)
+        public List<PokemonShortViewModel> GetPokemonByOwner(int ownerId)
         {
-            if (!_ownerRepository.OwnerExists(ownerId))
-            {
-                return NotFound();
-            }
-            var owner = _mapper.Map<List<PokemonViewModel>>(_pokemonRepository.GetPokemonsByOwnerId(ownerId));
+            var owner = _mapper.Map<List<PokemonShortViewModel>>(_pokemonRepository.GetPokemonsByOwnerId(ownerId));
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            return Ok(owner);
+            return owner;
         }
 
         [HttpGet("{pokeId}/health")]
         [ProducesResponseType(200, Type = typeof(decimal))]
         [ProducesResponseType(400)]
-        public IActionResult GetPokemonHealth(int pokeId) //Action result is ~newish thing, uses polymorphism
+        public int GetPokemonHealth(int pokeId) //Action result is ~newish thing, uses polymorphism
         {
-            if (!_pokemonRepository.PokemonExists(pokeId))
-            {
-                return NotFound();
-            }
-
             var health = _pokemonRepository.GetPokemonHealth(pokeId);
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            return Ok(health);
+            return health;
         }
 
         [HttpGet("{pokeId}/damage")]
         [ProducesResponseType(200, Type = typeof(decimal))]
         [ProducesResponseType(400)]
-        public IActionResult GetPokemonRating(int pokeId) //Action result is ~newish thing, uses polymorphism
+        public int GetPokemonDamage(int pokeId)
         {
-            if (!_pokemonRepository.PokemonExists(pokeId))
-            {
-                return NotFound();
-            }
-
             var damage = _pokemonRepository.GetPokemonDamage(pokeId);
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            return Ok(damage);
+            return damage;
         }
 
         [HttpGet("{Name}")]
-        public IActionResult GetPokemonByName(string Name)
+        public PokemonShortViewModel GetPokemonByName(string Name)
         {
-            var pokeName = _mapper.Map<PokemonViewModel>(_pokemonRepository.GetPokemonByName(Name));
-            return Ok(pokeName);
+            var pokeName = _mapper.Map<PokemonShortViewModel>(_pokemonRepository.GetPokemonByName(Name));
+            return pokeName;
         }
         
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult CreatePokemonGay([FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel pokemonCreate)
+        public PokemonShortViewModel CreatePokemon([FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel pokemonCreate)
         {
-            if (pokemonCreate == null)
-                return BadRequest(ModelState);
 
             var pokemons = _pokemonRepository.GetPokemons()
-                .Where(c => c.Name.Trim().ToUpper() == pokemonCreate.Name.TrimEnd().ToUpper())
-                .FirstOrDefault();
-
-            if (pokemons != null)
-            {
-                ModelState.AddModelError("", "Pokemon already Exists");
-                return StatusCode(422, ModelState);
-            }
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                .FirstOrDefault(c => c.Name.Trim().ToUpper() == pokemonCreate.Name.TrimEnd().ToUpper());
 
             var pokemonMap = _mapper.Map<PokemonEntity>(pokemonCreate);
             _pokemonRepository.CreatePokemon(ownerId, catId, pokemonMap);
-            return Ok("Successfully created");
+            return pokemonCreate;
         }
 
         [HttpPut("{pokeId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult UpdatePokemon(int pokeId, [FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonViewModel updatedPokemon)
+        public PokemonViewModel UpdatePokemon([FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonViewModel updatedPokemon)
         {
-            if (updatedPokemon == null)
-                return BadRequest(ModelState);
-
-            if (pokeId != updatedPokemon.Id)
-                return BadRequest(ModelState);
-
-            if (!_pokemonRepository.PokemonExists(pokeId))
-                return NotFound();
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var pokemonMap = _mapper.Map<PokemonEntity>(updatedPokemon);
-            _pokemonRepository.UpdatePokemon(ownerId, catId, pokemonMap);
-            return NoContent();
+            _pokemonService.UpdatePokemon(ownerId, catId, updatedPokemon);
+            return updatedPokemon;
         }
 
         [HttpDelete("{pokeId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult DeletePokemon(int pokeId)
+        public PokemonEntity DeletePokemon(int pokeId)
         {
-            if (!_pokemonRepository.PokemonExists(pokeId))
-            {
-                return NotFound();
-            }
             var pokemonToDelete = _pokemonRepository.GetPokemonById(pokeId);
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
 
             _pokemonRepository.DeletePokemon(pokemonToDelete);
-            return NoContent();
+            return pokemonToDelete;
         }
 
     }

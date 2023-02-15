@@ -8,18 +8,20 @@ namespace PokemonReviewApi.Helper
     {
         public MappingProfiles()
         {
-            CreateMap<CategoryEntity, CategoryViewModel>();
-            CreateMap<CategoryViewModel, CategoryEntity>();
-            CreateMap<CountryEntity, CountryViewModel>();
-            CreateMap<CountryViewModel, CountryEntity>();
-            CreateMap<OwnerEntity, OwnerViewModel>();
-            CreateMap<OwnerViewModel, OwnerEntity>();
-            CreateMap<PokemonEntity, PokemonViewModel>();
-            CreateMap<PokemonViewModel, PokemonEntity>();
-            CreateMap<PokemonShortViewModel, PokemonEntity>();
-            CreateMap<OwnerShortViewModel, OwnerEntity>();
-            CreateMap<CountryShortViewModel, CountryEntity>();
-            CreateMap<CategoryShortViewModel, CategoryEntity>();
+            CreateMap<CategoryEntity, CategoryViewModel>().ReverseMap();
+            CreateMap<CategoryShortViewModel, CategoryEntity>().ReverseMap();
+
+            CreateMap<CountryEntity, CountryViewModel>().ReverseMap();
+            CreateMap<CountryShortViewModel, CountryEntity>().ReverseMap();
+
+            CreateMap<OwnerEntity, OwnerViewModel>().ReverseMap();
+            CreateMap<OwnerShortViewModel, OwnerEntity>().ReverseMap();
+
+            CreateMap<PokemonEntity, PokemonViewModel>().ReverseMap();
+            CreateMap<PokemonShortViewModel, PokemonEntity>().ReverseMap();
+           
+            
+            
         }
     }
 }

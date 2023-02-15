@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PokemonReviewApi.ViewModels;
-using PokemonReviewApi.Interfaces;
-using PokemonReviewApi.Entities;
 using System.Diagnostics.Metrics;
+using PokemonReviewApi.Entities;
+using PokemonReviewApi.Interfaces;
 
 namespace PokemonReviewApi.Controllers
 {
@@ -22,109 +22,70 @@ namespace PokemonReviewApi.Controllers
         
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CountryEntity>))]
-        public IActionResult GetCountries()
+        public List<CountryViewModel> GetCountries()
         {
             var countries = _mapper.Map<List<CountryViewModel>>(_countryRepository.GetCountries()); 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
 
-            return Ok(countries);
+            return countries;
         }
 
         [HttpGet("{countryId}")]
         [ProducesResponseType(200, Type = typeof(CountryEntity))]
         [ProducesResponseType(400)]
-        public IActionResult GetPokemon(int countryId) // should match with httpGet"{countryId}"
-        {
-            if (!_countryRepository.CountryExists(countryId))
-                return NotFound();                      
-
-            var country = _mapper.Map<CountryViewModel>(_countryRepository.GetCountryById(countryId));
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);        
+        public CountryShortViewModel GetPokemon(int countryId) // should match with httpGet"{countryId}"
+        {           
+            var country = _mapper.Map<CountryShortViewModel>(_countryRepository.GetCountryById(countryId));        
             
-            return Ok(country);
+            return country;
         }
 
         [HttpGet("owners/{ownerId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200, Type = typeof(CountryEntity))]
-        public IActionResult GetCountryByOwner(int ownerId)
+        public CountryShortViewModel GetCountryByOwner(int ownerId)
         {
-            var country = _mapper.Map<CountryViewModel>(_countryRepository.GetCountryByOwnerId(ownerId));
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            var country = _mapper.Map<CountryShortViewModel>(_countryRepository.GetCountryByOwnerId(ownerId));
 
-            return Ok(country);
+            return country;
         }
 
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult CreateCountry([FromBody] CountryShortViewModel countryCreate)
+        public CountryEntity CreateCountry([FromBody] CountryShortViewModel countryCreate)
         {
-            if (countryCreate == null)
-                return BadRequest(ModelState);
 
             var country = _countryRepository.GetCountries()
                 .FirstOrDefault(c => c.Name.Trim().ToUpper() == countryCreate.Name.TrimEnd().ToUpper());
 
-            if (country != null)
-            {
-                ModelState.AddModelError("", "Country already Exists");
-                return StatusCode(422, ModelState);
-            }
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var countryMap = _mapper.Map<CountryEntity>(countryCreate);
             _countryRepository.CreateCountry(countryMap);
 
-            return Ok("Successfully created");
+            return country;
         }
 
         [HttpPut("{countryId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateCategory(int countryId, [FromBody] CountryViewModel updatedCountry)
+        public CountryViewModel UpdateCategory( [FromBody] CountryViewModel updatedCountry)
         {
-            if (updatedCountry == null)
-                return BadRequest(ModelState);
-
-            if (countryId != updatedCountry.Id)
-                return BadRequest(ModelState);
-
-            if (!_countryRepository.CountryExists(countryId))
-                return NotFound();
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var countryMap = _mapper.Map<CountryEntity>(updatedCountry);
             _countryRepository.UpdateCountry(countryMap);
            
-            return NoContent();
+            return updatedCountry;
         }
 
         [HttpDelete("{countryId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult DeleteCountry(int countryId)
+        public CountryEntity DeleteCountry(int countryId)
         {
-            if (!_countryRepository.CountryExists(countryId))
-            {
-                return NotFound();
-            }
             var countryToDelete = _countryRepository.GetCountryById(countryId);
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             _countryRepository.DeleteCountry(countryToDelete);
             
-            return NoContent();
+            return countryToDelete;
         }
         
     }

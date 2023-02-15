@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PokemonReviewApi.ViewModels;
 using PokemonReviewApi.Interfaces;
 using PokemonReviewApi.Entities;
+using PokemonReviewApi.Repository;
 
 namespace PokemonReviewApi.Controllers
 {
@@ -21,94 +22,58 @@ namespace PokemonReviewApi.Controllers
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CategoryEntity>))]
-        public IActionResult GetCategories()
+        public List<CategoryViewModel> GetCategories()
         {
             var categories = _mapper.Map<List<CategoryViewModel>>(_categoryRepository.GetCategories()); //without automapper - var categories = _categoryRepository.GetCategory()
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
 
-            return Ok(categories);
+            return categories;
         }
 
         [HttpGet("{categoryId}")]
         [ProducesResponseType(200, Type = typeof(CategoryEntity))]
         [ProducesResponseType(400)]
-        public IActionResult GetCategory(int categoryId)
+        public CategoryShortViewModel GetCategory(int categoryId)
         {
-            if (!_categoryRepository.CategoryExists(categoryId))
-                return NotFound();                     
+            var category = _mapper.Map<CategoryShortViewModel>(_categoryRepository.GetCategoryById(categoryId));
 
-            var category = _mapper.Map<CategoryViewModel>(_categoryRepository.GetCategoryById(categoryId));
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);          //same spec return type
 
-            return Ok(category);
+            return category;
         }
 
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult CreateCategory([FromBody] CategoryShortViewModel categoryCreate)
+        public CategoryEntity CreateCategory([FromBody] CategoryShortViewModel categoryCreate)
         {
-            if (categoryCreate == null)
-                return BadRequest(ModelState);
-
             var category = _categoryRepository.GetCategories()
                 .FirstOrDefault(c => c.Name.Trim().ToUpper() == categoryCreate.Name.TrimEnd().ToUpper());
-            if (category != null)
-            {
-                ModelState.AddModelError("", "Category already Exists");
-                return StatusCode(422, ModelState);
-            }
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
 
             var categoryMap = _mapper.Map<CategoryEntity>(categoryCreate);
             _categoryRepository.CreateCategory(categoryMap);
-            return Ok("Successfully created");
+            return category;
         }
 
         [HttpPut("{categoryId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateCategory(int categoryId, [FromBody] CategoryViewModel updatedCategory)
+        public CategoryViewModel UpdateCategory( [FromBody] CategoryViewModel updatedCategory)
         {
-            if (updatedCategory == null)
-                return BadRequest(ModelState);
-
-            if (categoryId != updatedCategory.Id)
-                return BadRequest(ModelState);
-
-            if (!_categoryRepository.CategoryExists(categoryId))
-                return NotFound();
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var categoryMap = _mapper.Map<CategoryEntity>(updatedCategory);
             _categoryRepository.UpdateCategory(categoryMap);
            
-            return NoContent();
+            return updatedCategory;
         }
 
         [HttpDelete("{categoryId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult DeleteCategory(int categoryId)
+        public CategoryEntity DeleteCategory(int categoryId)
         {
-            if (!_categoryRepository.CategoryExists(categoryId))
-            {
-                return NotFound();
-            }
             var categoryToDelete = _categoryRepository.GetCategoryById(categoryId);
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             _categoryRepository.DeleteCategory(categoryToDelete);
-            return NoContent();
+            return categoryToDelete;
         }
     }
 }
