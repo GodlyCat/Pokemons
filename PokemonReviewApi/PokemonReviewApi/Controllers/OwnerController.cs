@@ -81,9 +81,10 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public OwnerViewModel UpdateOwner( [FromBody] OwnerViewModel updatedOwner)
+        public OwnerShortViewModel UpdateOwner([FromQuery] int ownerId, [FromBody] OwnerShortViewModel updatedOwner)
         {
             var ownerMap = _mapper.Map<OwnerEntity>(updatedOwner);
+            ownerMap.Id= ownerId;
             _ownerRepository.UpdateOwner(ownerMap);
             return updatedOwner;
         }

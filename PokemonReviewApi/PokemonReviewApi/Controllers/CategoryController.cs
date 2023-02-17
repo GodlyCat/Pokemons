@@ -4,6 +4,7 @@ using PokemonReviewApi.ViewModels;
 using PokemonReviewApi.Interfaces;
 using PokemonReviewApi.Entities;
 using PokemonReviewApi.Repository;
+using PokemonReviewApi.Services.IServices;
 
 namespace PokemonReviewApi.Controllers
 {
@@ -57,9 +58,10 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public CategoryViewModel UpdateCategory( [FromBody] CategoryViewModel updatedCategory)
+        public CategoryShortViewModel UpdateCategory([FromQuery] int categoryId, [FromBody] CategoryShortViewModel updatedCategory)
         {
-            var categoryMap = _mapper.Map<CategoryEntity>(updatedCategory);
+            var categoryMap = _mapper.Map<CategoryEntity>( updatedCategory);
+            categoryMap.Id = categoryId;
             _categoryRepository.UpdateCategory(categoryMap);
            
             return updatedCategory;

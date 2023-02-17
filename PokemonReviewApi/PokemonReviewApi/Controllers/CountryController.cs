@@ -68,9 +68,10 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public CountryViewModel UpdateCategory( [FromBody] CountryViewModel updatedCountry)
+        public CountryShortViewModel UpdateCountry([FromQuery] int countryId,  [FromBody] CountryShortViewModel updatedCountry)
         {
             var countryMap = _mapper.Map<CountryEntity>(updatedCountry);
+            countryMap.Id = countryId;
             _countryRepository.UpdateCountry(countryMap);
            
             return updatedCountry;

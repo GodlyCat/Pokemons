@@ -26,9 +26,10 @@ namespace PokemonReviewApi.Services
             throw new NotImplementedException();
         }
 
-        public PokemonViewModel UpdatePokemon(int ownerId, int categoryId, PokemonViewModel updatedPokemon)
+        public PokemonShortViewModel UpdatePokemon(int pokeId, int ownerId, int categoryId, PokemonShortViewModel updatedPokemon)
         {
             var pokemonMap = _mapper.Map<PokemonEntity>(updatedPokemon);
+            pokemonMap.Id= pokeId;
             _pokemonRepository.UpdatePokemon(ownerId, categoryId, pokemonMap);
             return updatedPokemon;
         }

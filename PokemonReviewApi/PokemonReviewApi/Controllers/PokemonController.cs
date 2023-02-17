@@ -67,7 +67,7 @@ namespace PokemonReviewApi.Controllers
         [HttpGet("{pokeId}/health")]
         [ProducesResponseType(200, Type = typeof(decimal))]
         [ProducesResponseType(400)]
-        public int GetPokemonHealth(int pokeId) //Action result is ~newish thing, uses polymorphism
+        public int GetPokemonHealth(int pokeId)
         {
             var health = _pokemonRepository.GetPokemonHealth(pokeId);
 
@@ -108,9 +108,9 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public PokemonViewModel UpdatePokemon([FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonViewModel updatedPokemon)
+        public PokemonShortViewModel UpdatePokemon([FromQuery] int pokeId, [FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel updatedPokemon)
         {
-            _pokemonService.UpdatePokemon(ownerId, catId, updatedPokemon);
+            _pokemonService.UpdatePokemon(pokeId, ownerId, catId, updatedPokemon);
             return updatedPokemon;
         }
 
