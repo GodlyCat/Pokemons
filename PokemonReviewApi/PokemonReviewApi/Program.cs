@@ -2,15 +2,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PokemonReviewApi;
 using PokemonReviewApi.Data;
-//using PokemonReviewApi.Interfaces;
-//using PokemonReviewApi.Repository;
+using PokemonReviewApi.Interfaces;
+using PokemonReviewApi.Repository;
+using PokemonReviewApi.Services;
+using PokemonReviewApi.Services.IServices;
 using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());// mapper relies on automapper and DI nugets, +helper folder
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
+builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
+builder.Services.AddScoped<IPokemonService, PokemonService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

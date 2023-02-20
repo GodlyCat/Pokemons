@@ -1,4 +1,5 @@
 ﻿using PokemonReviewApi.Entities;
+
 namespace PokemonReviewApi.Constants
 {
     public static class InitialData

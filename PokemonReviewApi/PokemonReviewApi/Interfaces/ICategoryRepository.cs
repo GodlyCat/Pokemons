@@ -1,4 +1,5 @@
 ﻿using PokemonReviewApi.Entities;
+
 namespace PokemonReviewApi.Interfaces
 {
     public interface ICategoryRepository
