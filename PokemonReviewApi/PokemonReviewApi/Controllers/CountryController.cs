@@ -4,6 +4,7 @@ using PokemonReviewApi.ViewModels;
 using System.Diagnostics.Metrics;
 using PokemonReviewApi.Entities;
 using PokemonReviewApi.Interfaces;
+using PokemonReviewApi.Services.IServices;
 
 namespace PokemonReviewApi.Controllers
 {
@@ -12,11 +13,13 @@ namespace PokemonReviewApi.Controllers
     public class CountryController : Controller
     {
         private readonly ICountryRepository _countryRepository;
+        private readonly ICountryService _countryService;
         private readonly IMapper _mapper;
 
-        public CountryController(ICountryRepository countryRepository, IMapper mapper)
+        public CountryController(ICountryRepository countryRepository, ICountryService countryService, IMapper mapper)
         {
             _countryRepository = countryRepository;
+            _countryService = countryService;
             _mapper = mapper;
         }
         
@@ -24,9 +27,9 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<CountryEntity>))]
         public List<CountryViewModel> GetCountries()
         {
-            var countries = _mapper.Map<List<CountryViewModel>>(_countryRepository.GetCountries()); 
+            var countries = _countryRepository.GetCountries(); 
 
-            return countries;
+            return _mapper.Map<List<CountryViewModel>>(countries);
         }
 
         [HttpGet("{countryId}")]
@@ -34,9 +37,9 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public CountryShortViewModel GetPokemon(int countryId) // should match with httpGet"{countryId}"
         {           
-            var country = _mapper.Map<CountryShortViewModel>(_countryRepository.GetCountryById(countryId));        
+            var country = _countryRepository.GetCountryById(countryId);        
             
-            return country;
+            return _mapper.Map<CountryShortViewModel>(country);
         }
 
         [HttpGet("owners/{ownerId}")]
@@ -44,36 +47,27 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(200, Type = typeof(CountryEntity))]
         public CountryShortViewModel GetCountryByOwner(int ownerId)
         {
-            var country = _mapper.Map<CountryShortViewModel>(_countryRepository.GetCountryByOwnerId(ownerId));
+            var country = _countryRepository.GetCountryByOwnerId(ownerId);
 
-            return country;
+            return _mapper.Map<CountryShortViewModel>(country);
         }
 
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public CountryEntity CreateCountry([FromBody] CountryShortViewModel countryCreate)
+        public CountryShortViewModel CreateCountry([FromBody] CountryShortViewModel countryCreate)
         {
-
-            var country = _countryRepository.GetCountries()
-                .FirstOrDefault(c => c.Name.Trim().ToUpper() == countryCreate.Name.TrimEnd().ToUpper());
-
-            var countryMap = _mapper.Map<CountryEntity>(countryCreate);
-            _countryRepository.CreateCountry(countryMap);
-
-            return country;
+            _countryService.CreateCountry(countryCreate);
+            return countryCreate;
         }
 
         [HttpPut("{countryId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public CountryShortViewModel UpdateCountry([FromQuery] int countryId,  [FromBody] CountryShortViewModel updatedCountry)
+        public CountryShortViewModel UpdateCountry([FromQuery] int countryId, [FromBody] CountryShortViewModel updatedCountry)
         {
-            var countryMap = _mapper.Map<CountryEntity>(updatedCountry);
-            countryMap.Id = countryId;
-            _countryRepository.UpdateCountry(countryMap);
-           
+            _countryService.UpdateCountry(countryId, updatedCountry);
             return updatedCountry;
         }
 
@@ -83,11 +77,9 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(404)]
         public CountryEntity DeleteCountry(int countryId)
         {
-            var countryToDelete = _countryRepository.GetCountryById(countryId);
-            _countryRepository.DeleteCountry(countryToDelete);
-            
-            return countryToDelete;
+            _countryService.DeleteCountry(countryId);
+            return null;
         }
-        
+
     }
 }
