@@ -14,7 +14,6 @@ namespace PokemonReviewApi.Controllers
     {
         private readonly IPokemonRepository _pokemonRepository;
         private readonly IPokemonService _pokemonService;
-        private readonly IOwnerRepository _ownerRepository;
         private readonly IMapper _mapper;
 
         public PokemonController(IPokemonRepository pokemonRepository, IPokemonService pokemonService, IMapper mapper)
@@ -28,9 +27,9 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<PokemonEntity>))]
         public List<PokemonViewModel> GetPokemons()
         {
-            var pokemons = _mapper.Map<List<PokemonViewModel>>(_pokemonRepository.GetPokemons()); //without automapper - var pokemons = _pokemonRepository.GetPokemons()
+            var pokemons = _pokemonRepository.GetPokemons(); 
 
-            return pokemons;
+            return _mapper.Map<List<PokemonViewModel>>(pokemons);
         }
 
         [HttpGet("{pokeId:int}")]
@@ -39,9 +38,9 @@ namespace PokemonReviewApi.Controllers
         public PokemonShortViewModel GetPokemon(int pokeId)
         {
 
-            var pokemon = _mapper.Map<PokemonShortViewModel>(_pokemonRepository.GetPokemonById(pokeId));
+            var pokemon = _pokemonRepository.GetPokemonById(pokeId);
 
-            return pokemon;
+            return _mapper.Map<PokemonShortViewModel>(pokemon);
         }
 
         [HttpGet("pokemon/{categoryId}")]
@@ -49,9 +48,9 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public List<PokemonEntity> GetPokemonByCategoryId(int categoryId)
         {
-            var pokemons = _mapper.Map<List<PokemonEntity>>(_pokemonRepository.GetPokemonsByCategoryId(categoryId));
+            var pokemons = _pokemonRepository.GetPokemonsByCategoryId(categoryId);
 
-            return pokemons;
+            return _mapper.Map<List<PokemonEntity>>(pokemons);
         }
 
         [HttpGet("{ownerId}/pokemon")]
@@ -59,9 +58,9 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public List<PokemonShortViewModel> GetPokemonByOwner(int ownerId)
         {
-            var owner = _mapper.Map<List<PokemonShortViewModel>>(_pokemonRepository.GetPokemonsByOwnerId(ownerId));
+            var owner = _pokemonRepository.GetPokemonsByOwnerId(ownerId);
 
-            return owner;
+            return _mapper.Map<List<PokemonShortViewModel>>(owner);
         }
 
         [HttpGet("{pokeId}/health")]
@@ -86,8 +85,8 @@ namespace PokemonReviewApi.Controllers
         [HttpGet("{Name}")]
         public PokemonShortViewModel GetPokemonByName(string Name)
         {
-            var pokeName = _mapper.Map<PokemonShortViewModel>(_pokemonRepository.GetPokemonByName(Name));
-            return pokeName;
+            var pokeName = _pokemonRepository.GetPokemonByName(Name);
+            return _mapper.Map<PokemonShortViewModel>(pokeName);
         }
         
         [HttpPost]
@@ -95,12 +94,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public PokemonShortViewModel CreatePokemon([FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel pokemonCreate)
         {
-
-            var pokemons = _pokemonRepository.GetPokemons()
-                .FirstOrDefault(c => c.Name.Trim().ToUpper() == pokemonCreate.Name.TrimEnd().ToUpper());
-
-            var pokemonMap = _mapper.Map<PokemonEntity>(pokemonCreate);
-            _pokemonRepository.CreatePokemon(ownerId, catId, pokemonMap);
+            _pokemonService.CreatePokemon(ownerId, catId, pokemonCreate);
             return pokemonCreate;
         }
 
@@ -120,10 +114,8 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(404)]
         public PokemonEntity DeletePokemon(int pokeId)
         {
-            var pokemonToDelete = _pokemonRepository.GetPokemonById(pokeId);
-
-            _pokemonRepository.DeletePokemon(pokemonToDelete);
-            return pokemonToDelete;
+            _pokemonService.DeletePokemon(pokeId);
+            return null;
         }
 
     }
