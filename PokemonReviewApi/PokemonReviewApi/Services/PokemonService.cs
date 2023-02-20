@@ -16,14 +16,21 @@ namespace PokemonReviewApi.Services
             _pokemonRepository = pokemonRepository;
             _mapper = mapper;
         }
-        public PokemonEntity CreatePokemon(int ownerId, int categoryId, PokemonEntity createdPokemon)
+        public PokemonShortViewModel CreatePokemon(int ownerId, int categoryId, PokemonShortViewModel createdPokemon)
         {
-            throw new NotImplementedException();
+            var pokemons = _pokemonRepository.GetPokemons()
+               .FirstOrDefault(c => c.Name.Trim().ToUpper() == createdPokemon.Name.TrimEnd().ToUpper());
+
+            var pokemonMap = _mapper.Map<PokemonEntity>(createdPokemon);
+            _pokemonRepository.CreatePokemon(ownerId, categoryId, pokemonMap);
+            return createdPokemon;
         }
 
-        public void DeletePokemon(PokemonEntity deletedPokemon)
+        public void DeletePokemon(int pokeId)
         {
-            throw new NotImplementedException();
+            var pokemonToDelete = _pokemonRepository.GetPokemonById(pokeId);
+
+            _pokemonRepository.DeletePokemon(pokemonToDelete);
         }
 
         public PokemonShortViewModel UpdatePokemon(int pokeId, int ownerId, int categoryId, PokemonShortViewModel updatedPokemon)
