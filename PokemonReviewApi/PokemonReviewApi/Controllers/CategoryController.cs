@@ -28,7 +28,6 @@ namespace PokemonReviewApi.Controllers
         public List<CategoryViewModel> GetCategories()
         {
             var categories = _categoryRepository.GetCategories(); //without automapper - var categories = _categoryRepository.GetCategory()
-
             return _mapper.Map<List<CategoryViewModel>>(categories);
         }
 
@@ -38,8 +37,6 @@ namespace PokemonReviewApi.Controllers
         public CategoryShortViewModel GetCategory(int categoryId)
         {
             var category = _categoryRepository.GetCategoryById(categoryId);
-
-
             return _mapper.Map<CategoryShortViewModel>(category);
         }
 

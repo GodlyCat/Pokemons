@@ -88,6 +88,5 @@ namespace PokemonReviewApi.Controllers
             _ownerService.DeleteOwner(ownerId);
             return null;
         }
-
     }
 }
