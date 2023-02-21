@@ -80,6 +80,5 @@ namespace PokemonReviewApi.Controllers
             _countryService.DeleteCountry(countryId);
             return null;
         }
-
     }
 }
