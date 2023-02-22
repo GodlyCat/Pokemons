@@ -34,6 +34,27 @@ namespace PokemonReviewApi.Services
             _countryRepository.DeleteCountry(countryToDelete);
         }
 
+        public List<CountryViewModel> GetCountries()
+        {
+            var countries = _countryRepository.GetCountries();
+
+            return _mapper.Map<List<CountryViewModel>>(countries);
+        }
+
+        public CountryShortViewModel? GetCountryById(int id)
+        {
+            var country = _countryRepository.GetCountryById(id);
+
+            return _mapper.Map<CountryShortViewModel>(country);
+        }
+
+        public CountryShortViewModel? GetCountryByOwnerId(int ownerId)
+        {
+            var country = _countryRepository.GetCountryByOwnerId(ownerId);
+
+            return _mapper.Map<CountryShortViewModel>(country);
+        }
+
         public CountryShortViewModel UpdateCountry(int countryId, CountryShortViewModel updatedCountry)
         {
             var countryMap = _mapper.Map<CountryEntity>(updatedCountry);

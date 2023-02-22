@@ -11,43 +11,32 @@ namespace PokemonReviewApi.Controllers
     [ApiController]
     public class OwnerController : Controller
     {
-        private readonly IOwnerRepository _ownerRepository;
         private readonly IOwnerService _ownerService;
-        private readonly IMapper _mapper;
 
-        public OwnerController(IOwnerRepository ownerRepository, IOwnerService ownerService, IMapper mapper)
+        public OwnerController(IOwnerService ownerService)
         {
-            _ownerRepository = ownerRepository;
             _ownerService = ownerService;
-            _mapper = mapper;
         }
         
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<OwnerEntity>))]
         public List<OwnerViewModel> GetOwners()
         {
-            var owners = _ownerRepository.GetOwners();
-
-            return _mapper.Map<List<OwnerViewModel>>(owners);
+            return _ownerService.GetOwners();
         }
 
         [HttpGet("Pokemon/{pokeId}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<OwnerEntity>))]
         public List<OwnerShortViewModel> GetOwnersByPokeId(int pokeId)
         {
-            var owners = _ownerRepository.GetOwnersByPokeId(pokeId);
-
-
-            return _mapper.Map<List<OwnerShortViewModel>>(owners);
+            return _ownerService.GetOwnersByPokeId(pokeId);
         }
 
         [HttpGet("Country/{countryId}")] //works pretty good
         [ProducesResponseType(200, Type = typeof(IEnumerable<OwnerEntity>))]
         public List<OwnerShortViewModel> GetOwnersByCountryId(int countryId)
         {
-            var owners = _ownerRepository.GetOwnersByCountryId(countryId);
-
-            return _mapper.Map<List<OwnerShortViewModel>>(owners);
+            return _ownerService.GetOwnersByCountryId(countryId);
         }
 
         [HttpGet("{ownerId}")]
@@ -55,9 +44,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public OwnerShortViewModel GetOwner(int ownerId)
         {
-            var owner = _ownerRepository.GetOwnerById(ownerId);
-
-            return _mapper.Map<OwnerShortViewModel>(owner);
+            return _ownerService.GetOwnerById(ownerId);
         }
 
         [HttpPost]
