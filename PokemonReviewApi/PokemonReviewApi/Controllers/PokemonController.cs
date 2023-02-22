@@ -12,24 +12,18 @@ namespace PokemonReviewApi.Controllers
     [ApiController]
     public class PokemonController : Controller
     {
-        private readonly IPokemonRepository _pokemonRepository;
         private readonly IPokemonService _pokemonService;
-        private readonly IMapper _mapper;
 
-        public PokemonController(IPokemonRepository pokemonRepository, IPokemonService pokemonService, IMapper mapper)
+        public PokemonController(IPokemonService pokemonService)
         {
-            _pokemonRepository = pokemonRepository;
             _pokemonService = pokemonService;
-            _mapper = mapper;
         }
         
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<PokemonEntity>))]
         public List<PokemonViewModel> GetPokemons()
         {
-            var pokemons = _pokemonRepository.GetPokemons(); 
-
-            return _mapper.Map<List<PokemonViewModel>>(pokemons);
+            return _pokemonService.GetPokemons();
         }
 
         [HttpGet("{pokeId:int}")]
@@ -37,10 +31,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public PokemonShortViewModel GetPokemon(int pokeId)
         {
-
-            var pokemon = _pokemonRepository.GetPokemonById(pokeId);
-
-            return _mapper.Map<PokemonShortViewModel>(pokemon);
+            return _pokemonService.GetPokemonById(pokeId);
         }
 
         [HttpGet("pokemon/{categoryId}")]
@@ -48,9 +39,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public List<PokemonEntity> GetPokemonByCategoryId(int categoryId)
         {
-            var pokemons = _pokemonRepository.GetPokemonsByCategoryId(categoryId);
-
-            return _mapper.Map<List<PokemonEntity>>(pokemons);
+            return _pokemonService.GetPokemonsByCategoryId(categoryId);
         }
 
         [HttpGet("{ownerId}/pokemon")]
@@ -58,9 +47,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public List<PokemonShortViewModel> GetPokemonByOwner(int ownerId)
         {
-            var owner = _pokemonRepository.GetPokemonsByOwnerId(ownerId);
-
-            return _mapper.Map<List<PokemonShortViewModel>>(owner);
+            return _pokemonService.GetPokemonsByOwnerId(ownerId);
         }
 
         [HttpGet("{pokeId}/health")]
@@ -68,9 +55,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public int GetPokemonHealth(int pokeId)
         {
-            var health = _pokemonRepository.GetPokemonHealth(pokeId);
-
-            return health;
+            return _pokemonService.GetPokemonHealth(pokeId);
         }
 
         [HttpGet("{pokeId}/damage")]
@@ -78,15 +63,13 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public int GetPokemonDamage(int pokeId)
         {
-            var damage = _pokemonRepository.GetPokemonDamage(pokeId);
-            return damage;
+            return _pokemonService.GetPokemonDamage(pokeId);
         }
 
         [HttpGet("{Name}")]
         public PokemonShortViewModel GetPokemonByName(string Name)
         {
-            var pokeName = _pokemonRepository.GetPokemonByName(Name);
-            return _mapper.Map<PokemonShortViewModel>(pokeName);
+            return _pokemonService.GetPokemonByName(Name);
         }
         
         [HttpPost]
@@ -117,6 +100,5 @@ namespace PokemonReviewApi.Controllers
             _pokemonService.DeletePokemon(pokeId);
             return null;
         }
-
     }
 }

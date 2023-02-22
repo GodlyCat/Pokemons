@@ -37,6 +37,35 @@ namespace PokemonReviewApi.Services
             _ownerRepository.DeleteOwner(ownerToDelete);
         }
 
+        public OwnerShortViewModel? GetOwnerById(int ownerId)
+        {
+            var owner = _ownerRepository.GetOwnerById(ownerId);
+
+            return _mapper.Map<OwnerShortViewModel>(owner);
+        }
+
+        public List<OwnerViewModel> GetOwners()
+        {
+            var owners = _ownerRepository.GetOwners();
+
+            return _mapper.Map<List<OwnerViewModel>>(owners);
+        }
+
+        public List<OwnerShortViewModel> GetOwnersByCountryId(int countryId)
+        {
+            var owners = _ownerRepository.GetOwnersByCountryId(countryId);
+
+            return _mapper.Map<List<OwnerShortViewModel>>(owners);
+        }
+
+        public List<OwnerShortViewModel> GetOwnersByPokeId(int pokeId)
+        {
+            var owners = _ownerRepository.GetOwnersByPokeId(pokeId);
+
+
+            return _mapper.Map<List<OwnerShortViewModel>>(owners);
+        }
+
         public OwnerShortViewModel UpdateOwner(int countryId, int ownerId, OwnerShortViewModel updatedOwner)
         {
             var ownerMap = _mapper.Map<OwnerEntity>(updatedOwner);

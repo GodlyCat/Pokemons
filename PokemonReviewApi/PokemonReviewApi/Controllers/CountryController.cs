@@ -12,34 +12,26 @@ namespace PokemonReviewApi.Controllers
     [ApiController]
     public class CountryController : Controller
     {
-        private readonly ICountryRepository _countryRepository;
         private readonly ICountryService _countryService;
-        private readonly IMapper _mapper;
 
-        public CountryController(ICountryRepository countryRepository, ICountryService countryService, IMapper mapper)
+        public CountryController(ICountryService countryService)
         {
-            _countryRepository = countryRepository;
             _countryService = countryService;
-            _mapper = mapper;
         }
         
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CountryEntity>))]
         public List<CountryViewModel> GetCountries()
         {
-            var countries = _countryRepository.GetCountries(); 
-
-            return _mapper.Map<List<CountryViewModel>>(countries);
+            return _countryService.GetCountries();
         }
 
         [HttpGet("{countryId}")]
         [ProducesResponseType(200, Type = typeof(CountryEntity))]
         [ProducesResponseType(400)]
-        public CountryShortViewModel GetPokemon(int countryId) // should match with httpGet"{countryId}"
+        public CountryShortViewModel GetCountryById(int countryId) // should match with httpGet"{countryId}"
         {           
-            var country = _countryRepository.GetCountryById(countryId);        
-            
-            return _mapper.Map<CountryShortViewModel>(country);
+            return _countryService.GetCountryById(countryId);
         }
 
         [HttpGet("owners/{ownerId}")]
@@ -47,9 +39,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(200, Type = typeof(CountryEntity))]
         public CountryShortViewModel GetCountryByOwner(int ownerId)
         {
-            var country = _countryRepository.GetCountryByOwnerId(ownerId);
-
-            return _mapper.Map<CountryShortViewModel>(country);
+            return _countryService.GetCountryByOwnerId(ownerId);
         }
 
         [HttpPost]

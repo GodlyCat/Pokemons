@@ -33,6 +33,18 @@ namespace PokemonReviewApi.Services
             _categoryRepository.DeleteCategory(categoryToDelete);
         }
 
+        public List<CategoryViewModel> GetCategories()
+        {
+            var categories = _categoryRepository.GetCategories();
+            return _mapper.Map<List<CategoryViewModel>>(categories);
+        }
+
+        public CategoryShortViewModel? GetCategoryById(int id)
+        {
+            var category = _categoryRepository.GetCategoryById(id);
+            return _mapper.Map<CategoryShortViewModel>(category);
+        }
+
         public CategoryShortViewModel UpdateCategory(int categoryId, CategoryShortViewModel updatedCategory)
         {
             var categoryMap = _mapper.Map<CategoryEntity>(updatedCategory);
