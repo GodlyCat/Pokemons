@@ -1,14 +1,14 @@
-﻿using PokemonReviewApi.Entities;
+﻿using PokemonReviewApi.Models;
 using PokemonReviewApi.ViewModels;
 
 namespace PokemonReviewApi.Services.IServices
 {
     public interface ICategoryService
     {
-        List<CategoryViewModel> GetCategories();
-        CategoryShortViewModel? GetCategoryById(int id);
-        CategoryShortViewModel CreateCategory(CategoryShortViewModel createdCategory);
-        CategoryShortViewModel UpdateCategory(int categoryId, CategoryShortViewModel updatedCategory);
+        List<Category> GetCategories();
+        Category? GetCategoryById(int id);
+        Category CreateCategory(Category createdCategory);
+        Category UpdateCategory(int categoryId, Category updatedCategory);
         void DeleteCategory(int categoryId);
     }
 }

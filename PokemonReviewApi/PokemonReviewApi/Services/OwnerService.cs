@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PokemonReviewApi.Entities;
+using PokemonReviewApi.Models;
 using PokemonReviewApi.Interfaces;
 using PokemonReviewApi.Services.IServices;
 using PokemonReviewApi.ViewModels;
@@ -19,7 +20,7 @@ namespace PokemonReviewApi.Services
             _mapper = mapper;
         }
 
-        public OwnerShortViewModel CreateOwner(int countryId, OwnerShortViewModel createdOwner)
+        public Owner CreateOwner(int countryId, Owner createdOwner)
         {
             var owners = _ownerRepository.GetOwners()
                 .FirstOrDefault(c => c.LastName.Trim().ToUpper() == createdOwner.LastName.TrimEnd().ToUpper());
@@ -37,36 +38,35 @@ namespace PokemonReviewApi.Services
             _ownerRepository.DeleteOwner(ownerToDelete);
         }
 
-        public OwnerShortViewModel? GetOwnerById(int ownerId)
+        public Owner? GetOwnerById(int ownerId)
         {
             var owner = _ownerRepository.GetOwnerById(ownerId);
 
-            return _mapper.Map<OwnerShortViewModel>(owner);
+            return _mapper.Map<Owner>(owner);
         }
 
-        public List<OwnerViewModel> GetOwners()
+        public List<Owner> GetOwners()
         {
             var owners = _ownerRepository.GetOwners();
 
-            return _mapper.Map<List<OwnerViewModel>>(owners);
+            return _mapper.Map<List<Owner>>(owners);
         }
 
-        public List<OwnerShortViewModel> GetOwnersByCountryId(int countryId)
+        public List<Owner> GetOwnersByCountryId(int countryId)
         {
             var owners = _ownerRepository.GetOwnersByCountryId(countryId);
 
-            return _mapper.Map<List<OwnerShortViewModel>>(owners);
+            return _mapper.Map<List<Owner>>(owners);
         }
 
-        public List<OwnerShortViewModel> GetOwnersByPokeId(int pokeId)
+        public List<Owner> GetOwnersByPokeId(int pokeId)
         {
             var owners = _ownerRepository.GetOwnersByPokeId(pokeId);
 
-
-            return _mapper.Map<List<OwnerShortViewModel>>(owners);
+            return _mapper.Map<List<Owner>>(owners);
         }
 
-        public OwnerShortViewModel UpdateOwner(int countryId, int ownerId, OwnerShortViewModel updatedOwner)
+        public Owner UpdateOwner(int countryId, int ownerId, Owner updatedOwner)
         {
             var ownerMap = _mapper.Map<OwnerEntity>(updatedOwner);
             ownerMap.Id = ownerId;

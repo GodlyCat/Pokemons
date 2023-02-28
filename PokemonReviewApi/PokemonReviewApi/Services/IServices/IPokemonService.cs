@@ -1,19 +1,19 @@
-﻿using PokemonReviewApi.Entities;
+﻿using PokemonReviewApi.Models;
 using PokemonReviewApi.ViewModels;
 
 namespace PokemonReviewApi.Services.IServices
 {
     public interface IPokemonService
     {
-        List<PokemonViewModel> GetPokemons();
-        List<PokemonEntity> GetPokemonsByCategoryId(int categoryId);
-        List<PokemonShortViewModel> GetPokemonsByOwnerId(int ownerId);
-        PokemonShortViewModel? GetPokemonById(int id);
-        PokemonShortViewModel? GetPokemonByName(string name);
+        List<Pokemon> GetPokemons();
+        List<Pokemon> GetPokemonsByCategoryId(int categoryId);
+        List<Pokemon> GetPokemonsByOwnerId(int ownerId);
+        Pokemon? GetPokemonById(int id);
+        Pokemon? GetPokemonByName(string name);
         int GetPokemonHealth(int pokeId);
         int GetPokemonDamage(int pokeId);
-        PokemonShortViewModel CreatePokemon(int ownerId, int categoryId, PokemonShortViewModel createdPokemon);
-        PokemonShortViewModel UpdatePokemon(int pokeId, int ownerId, int categoryId, PokemonShortViewModel updatedPokemon);
+        Pokemon CreatePokemon(int ownerId, int categoryId, Pokemon createdPokemon);
+        Pokemon UpdatePokemon(int pokeId, int ownerId, int categoryId, Pokemon updatedPokemon);
         void DeletePokemon(int pokeId);
     }
 }

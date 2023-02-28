@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PokemonReviewApi.ViewModels;
 using System.Diagnostics.Metrics;
 using PokemonReviewApi.Entities;
+using PokemonReviewApi.Models;
 using PokemonReviewApi.Interfaces;
 using PokemonReviewApi.Services.IServices;
 
@@ -13,17 +14,19 @@ namespace PokemonReviewApi.Controllers
     public class CountryController : Controller
     {
         private readonly ICountryService _countryService;
+        private readonly IMapper _mapper;
 
-        public CountryController(ICountryService countryService)
+        public CountryController(ICountryService countryService, IMapper mapper)
         {
             _countryService = countryService;
+            _mapper = mapper;
         }
         
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CountryEntity>))]
         public List<CountryViewModel> GetCountries()
         {
-            return _countryService.GetCountries();
+            return _mapper.Map<List<CountryViewModel>>(_countryService.GetCountries());
         }
 
         [HttpGet("{countryId}")]
@@ -31,7 +34,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public CountryShortViewModel GetCountryById(int countryId) // should match with httpGet"{countryId}"
         {           
-            return _countryService.GetCountryById(countryId);
+            return _mapper.Map<CountryShortViewModel>(_countryService.GetCountryById(countryId));
         }
 
         [HttpGet("owners/{ownerId}")]
@@ -39,7 +42,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(200, Type = typeof(CountryEntity))]
         public CountryShortViewModel GetCountryByOwner(int ownerId)
         {
-            return _countryService.GetCountryByOwnerId(ownerId);
+            return _mapper.Map<CountryShortViewModel>(_countryService.GetCountryByOwnerId(ownerId));
         }
 
         [HttpPost]
@@ -47,7 +50,8 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public CountryShortViewModel CreateCountry([FromBody] CountryShortViewModel countryCreate)
         {
-            _countryService.CreateCountry(countryCreate);
+            var countryMap = _mapper.Map<Country>(countryCreate);
+            _countryService.CreateCountry(countryMap);
             return countryCreate;
         }
 
@@ -57,7 +61,8 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(404)]
         public CountryShortViewModel UpdateCountry([FromQuery] int countryId, [FromBody] CountryShortViewModel updatedCountry)
         {
-            _countryService.UpdateCountry(countryId, updatedCountry);
+            var countryMap = _mapper.Map<Country>(updatedCountry);
+            _countryService.UpdateCountry(countryId, countryMap);
             return updatedCountry;
         }
 
@@ -65,7 +70,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public CountryEntity DeleteCountry(int countryId)
+        public Country DeleteCountry(int countryId)
         {
             _countryService.DeleteCountry(countryId);
             return null;

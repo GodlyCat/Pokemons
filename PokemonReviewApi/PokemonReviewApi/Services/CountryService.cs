@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PokemonReviewApi.Entities;
+using PokemonReviewApi.Models;
 using PokemonReviewApi.Interfaces;
 using PokemonReviewApi.Services.IServices;
 using PokemonReviewApi.ViewModels;
@@ -17,7 +18,7 @@ namespace PokemonReviewApi.Services
             _mapper = mapper;
         }
 
-        public CountryShortViewModel CreateCountry(CountryShortViewModel createdCountry)
+        public Country CreateCountry(Country createdCountry)
         {
             var country = _countryRepository.GetCountries()
                 .FirstOrDefault(c => c.Name.Trim().ToUpper() == createdCountry.Name.TrimEnd().ToUpper());
@@ -34,28 +35,28 @@ namespace PokemonReviewApi.Services
             _countryRepository.DeleteCountry(countryToDelete);
         }
 
-        public List<CountryViewModel> GetCountries()
+        public List<Country> GetCountries()
         {
             var countries = _countryRepository.GetCountries();
 
-            return _mapper.Map<List<CountryViewModel>>(countries);
+            return _mapper.Map<List<Country>>(countries);
         }
 
-        public CountryShortViewModel? GetCountryById(int id)
+        public Country? GetCountryById(int id)
         {
             var country = _countryRepository.GetCountryById(id);
 
-            return _mapper.Map<CountryShortViewModel>(country);
+            return _mapper.Map<Country>(country);
         }
 
-        public CountryShortViewModel? GetCountryByOwnerId(int ownerId)
+        public Country? GetCountryByOwnerId(int ownerId)
         {
             var country = _countryRepository.GetCountryByOwnerId(ownerId);
 
-            return _mapper.Map<CountryShortViewModel>(country);
+            return _mapper.Map<Country>(country);
         }
 
-        public CountryShortViewModel UpdateCountry(int countryId, CountryShortViewModel updatedCountry)
+        public Country UpdateCountry(int countryId, Country updatedCountry)
         {
             var countryMap = _mapper.Map<CountryEntity>(updatedCountry);
             countryMap.Id = countryId;

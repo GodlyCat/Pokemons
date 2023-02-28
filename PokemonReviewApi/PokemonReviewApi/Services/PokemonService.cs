@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PokemonReviewApi.Entities;
+using PokemonReviewApi.Models;
 using PokemonReviewApi.Interfaces;
 using PokemonReviewApi.Services.IServices;
 using PokemonReviewApi.ViewModels;
@@ -16,7 +17,7 @@ namespace PokemonReviewApi.Services
             _pokemonRepository = pokemonRepository;
             _mapper = mapper;
         }
-        public PokemonShortViewModel CreatePokemon(int ownerId, int categoryId, PokemonShortViewModel createdPokemon)
+        public Pokemon CreatePokemon(int ownerId, int categoryId, Pokemon createdPokemon)
         {
             var pokemons = _pokemonRepository.GetPokemons()
                .FirstOrDefault(c => c.Name.Trim().ToUpper() == createdPokemon.Name.TrimEnd().ToUpper());
@@ -32,17 +33,17 @@ namespace PokemonReviewApi.Services
             _pokemonRepository.DeletePokemon(pokemonToDelete);
         }
 
-        public PokemonShortViewModel? GetPokemonById(int id)
+        public Pokemon? GetPokemonById(int id)
         {
             var pokemon = _pokemonRepository.GetPokemonById(id);
 
-            return _mapper.Map<PokemonShortViewModel>(pokemon);
+            return _mapper.Map<Pokemon>(pokemon);
         }
 
-        public PokemonShortViewModel? GetPokemonByName(string name)
+        public Pokemon? GetPokemonByName(string name)
         {
             var pokeName = _pokemonRepository.GetPokemonByName(name);
-            return _mapper.Map<PokemonShortViewModel>(pokeName);
+            return _mapper.Map<Pokemon>(pokeName);
         }
 
         public int GetPokemonDamage(int pokeId)
@@ -58,28 +59,28 @@ namespace PokemonReviewApi.Services
             return health;
         }
 
-        public List<PokemonViewModel> GetPokemons()
+        public List<Pokemon> GetPokemons()
         {
             var pokemons = _pokemonRepository.GetPokemons();
 
-            return _mapper.Map<List<PokemonViewModel>>(pokemons);
+            return _mapper.Map<List<Pokemon>>(pokemons);
         }
 
-        public List<PokemonEntity> GetPokemonsByCategoryId(int categoryId)
+        public List<Pokemon> GetPokemonsByCategoryId(int categoryId)
         {
             var pokemons = _pokemonRepository.GetPokemonsByCategoryId(categoryId);
 
-            return _mapper.Map<List<PokemonEntity>>(pokemons);
+            return _mapper.Map<List<Pokemon>>(pokemons);
         }
 
-        public List<PokemonShortViewModel> GetPokemonsByOwnerId(int ownerId)
+        public List<Pokemon> GetPokemonsByOwnerId(int ownerId)
         {
             var owner = _pokemonRepository.GetPokemonsByOwnerId(ownerId);
 
-            return _mapper.Map<List<PokemonShortViewModel>>(owner);
+            return _mapper.Map<List<Pokemon>>(owner);
         }
 
-        public PokemonShortViewModel UpdatePokemon(int pokeId, int ownerId, int categoryId, PokemonShortViewModel updatedPokemon)
+        public Pokemon UpdatePokemon(int pokeId, int ownerId, int categoryId, Pokemon updatedPokemon)
         {
             var pokemonMap = _mapper.Map<PokemonEntity>(updatedPokemon);
             pokemonMap.Id = pokeId;

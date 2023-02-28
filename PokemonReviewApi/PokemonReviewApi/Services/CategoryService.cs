@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PokemonReviewApi.Entities;
+using PokemonReviewApi.Models;
 using PokemonReviewApi.Interfaces;
 using PokemonReviewApi.Services.IServices;
 using PokemonReviewApi.ViewModels;
@@ -17,7 +18,7 @@ namespace PokemonReviewApi.Services
             _mapper = mapper;
         }
 
-        public CategoryShortViewModel CreateCategory(CategoryShortViewModel createdCategory)
+        public Category CreateCategory(Category createdCategory)
         {
             var category = _categoryRepository.GetCategories()
            .FirstOrDefault(c => c.Name.Trim().ToUpper() == createdCategory.Name.TrimEnd().ToUpper());
@@ -33,19 +34,19 @@ namespace PokemonReviewApi.Services
             _categoryRepository.DeleteCategory(categoryToDelete);
         }
 
-        public List<CategoryViewModel> GetCategories()
+        public List<Category> GetCategories()
         {
             var categories = _categoryRepository.GetCategories();
-            return _mapper.Map<List<CategoryViewModel>>(categories);
+            return _mapper.Map<List<Category>>(categories);
         }
 
-        public CategoryShortViewModel? GetCategoryById(int id)
+        public Category? GetCategoryById(int id)
         {
             var category = _categoryRepository.GetCategoryById(id);
-            return _mapper.Map<CategoryShortViewModel>(category);
+            return _mapper.Map<Category>(category);
         }
 
-        public CategoryShortViewModel UpdateCategory(int categoryId, CategoryShortViewModel updatedCategory)
+        public Category UpdateCategory(int categoryId, Category updatedCategory)
         {
             var categoryMap = _mapper.Map<CategoryEntity>(updatedCategory);
             categoryMap.Id = categoryId;

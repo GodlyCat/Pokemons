@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PokemonReviewApi.ViewModels;
 using PokemonReviewApi.Entities;
+using PokemonReviewApi.Models;
 using PokemonReviewApi.Interfaces;
 using PokemonReviewApi.Services.IServices;
 
@@ -12,31 +13,33 @@ namespace PokemonReviewApi.Controllers
     public class OwnerController : Controller
     {
         private readonly IOwnerService _ownerService;
+        private readonly IMapper _mapper;
 
-        public OwnerController(IOwnerService ownerService)
+        public OwnerController(IOwnerService ownerService, IMapper mapper)
         {
             _ownerService = ownerService;
+            _mapper = mapper;
         }
         
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<OwnerEntity>))]
         public List<OwnerViewModel> GetOwners()
         {
-            return _ownerService.GetOwners();
+            return _mapper.Map<List<OwnerViewModel>>(_ownerService.GetOwners());
         }
 
         [HttpGet("Pokemon/{pokeId}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<OwnerEntity>))]
         public List<OwnerShortViewModel> GetOwnersByPokeId(int pokeId)
         {
-            return _ownerService.GetOwnersByPokeId(pokeId);
+            return _mapper.Map<List<OwnerShortViewModel>>(_ownerService.GetOwnersByPokeId(pokeId));
         }
 
         [HttpGet("Country/{countryId}")] //works pretty good
         [ProducesResponseType(200, Type = typeof(IEnumerable<OwnerEntity>))]
         public List<OwnerShortViewModel> GetOwnersByCountryId(int countryId)
         {
-            return _ownerService.GetOwnersByCountryId(countryId);
+            return _mapper.Map<List<OwnerShortViewModel>>(_ownerService.GetOwnersByCountryId(countryId));
         }
 
         [HttpGet("{ownerId}")]
@@ -44,7 +47,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public OwnerShortViewModel GetOwner(int ownerId)
         {
-            return _ownerService.GetOwnerById(ownerId);
+            return _mapper.Map<OwnerShortViewModel>(_ownerService.GetOwnerById(ownerId));
         }
 
         [HttpPost]
@@ -52,7 +55,8 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public OwnerShortViewModel CreateOwner([FromQuery] int countryId, [FromBody] OwnerShortViewModel ownerCreate)
         {
-            _ownerService.CreateOwner(countryId, ownerCreate);
+            var ownerMap = _mapper.Map<Owner>(ownerCreate);
+            _ownerService.CreateOwner(countryId, ownerMap);
             return ownerCreate;
         }
 
@@ -62,7 +66,8 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(404)]
         public OwnerShortViewModel UpdateOwner([FromQuery] int countryId, [FromQuery] int ownerId, [FromBody] OwnerShortViewModel updatedOwner)
         {
-            _ownerService.UpdateOwner(countryId, ownerId, updatedOwner);
+            var ownerMap = _mapper.Map<Owner>(updatedOwner);
+            _ownerService.UpdateOwner(countryId, ownerId, ownerMap);
             return updatedOwner;
         }
 
@@ -70,7 +75,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public OwnerEntity DeleteOwner(int ownerId)
+        public Owner DeleteOwner(int ownerId)
         {
             _ownerService.DeleteOwner(ownerId);
             return null;
