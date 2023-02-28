@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using PokemonReviewApi.Entities;
 using PokemonReviewApi.Models;
 using PokemonReviewApi.Interfaces;

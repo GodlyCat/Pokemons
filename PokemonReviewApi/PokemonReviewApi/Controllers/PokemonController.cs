@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PokemonReviewApi.ViewModels;
 using PokemonReviewApi.Repository;
@@ -18,7 +18,6 @@ namespace PokemonReviewApi.Controllers
         public PokemonController(IPokemonService pokemonService, IMapper mapper)
         {
             _pokemonService = pokemonService;
-            _mapper = mapper;
         }
         
         [HttpGet]

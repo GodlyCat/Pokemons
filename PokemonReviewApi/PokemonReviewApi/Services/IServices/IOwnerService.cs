@@ -1,4 +1,4 @@
-﻿using PokemonReviewApi.Models;
+using PokemonReviewApi.Models;
 using PokemonReviewApi.ViewModels;
 
 namespace PokemonReviewApi.Services.IServices

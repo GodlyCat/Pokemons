@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using PokemonReviewApi.Helper;
 using Microsoft.AspNetCore.Mvc;
 using PokemonReviewApi.ViewModels;
