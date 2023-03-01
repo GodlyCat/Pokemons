@@ -26,7 +26,7 @@ namespace PokemonReviewApi.Services
             var countryMap = _mapper.Map<CountryEntity>(createdCountry);
             _countryRepository.CreateCountry(countryMap);
 
-            return createdCountry;
+            return _mapper.Map<Country>(countryMap);
         }
 
         public void DeleteCountry(int countryId)
@@ -62,7 +62,7 @@ namespace PokemonReviewApi.Services
             countryMap.Id = countryId;
             _countryRepository.UpdateCountry(countryMap);
 
-            return updatedCountry;
+            return _mapper.Map<Country>(countryMap);
         }
     }
 }

@@ -32,38 +32,38 @@ namespace PokemonReviewApi.Controllers
         [HttpGet("{countryId}")]
         [ProducesResponseType(200, Type = typeof(CountryEntity))]
         [ProducesResponseType(400)]
-        public CountryShortViewModel GetCountryById(int countryId) // should match with httpGet"{countryId}"
+        public CountryViewModel GetCountryById(int countryId) // should match with httpGet"{countryId}"
         {           
-            return _mapper.Map<CountryShortViewModel>(_countryService.GetCountryById(countryId));
+            return _mapper.Map<CountryViewModel>(_countryService.GetCountryById(countryId));
         }
 
         [HttpGet("owners/{ownerId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200, Type = typeof(CountryEntity))]
-        public CountryShortViewModel GetCountryByOwner(int ownerId)
+        public CountryViewModel GetCountryByOwner(int ownerId)
         {
-            return _mapper.Map<CountryShortViewModel>(_countryService.GetCountryByOwnerId(ownerId));
+            return _mapper.Map<CountryViewModel>(_countryService.GetCountryByOwnerId(ownerId));
         }
 
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public CountryShortViewModel CreateCountry([FromBody] CountryShortViewModel countryCreate)
+        public CountryViewModel CreateCountry([FromBody] CountryShortViewModel countryCreate)
         {
             var countryMap = _mapper.Map<Country>(countryCreate);
             _countryService.CreateCountry(countryMap);
-            return countryCreate;
+            return _mapper.Map<CountryViewModel>(countryMap);
         }
 
         [HttpPut("{countryId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public CountryShortViewModel UpdateCountry([FromQuery] int countryId, [FromBody] CountryShortViewModel updatedCountry)
+        public CountryViewModel UpdateCountry([FromQuery] int countryId, [FromBody] CountryShortViewModel updatedCountry)
         {
             var countryMap = _mapper.Map<Country>(updatedCountry);
             _countryService.UpdateCountry(countryId, countryMap);
-            return updatedCountry;
+            return _mapper.Map<CountryViewModel>(countryMap);
         }
 
         [HttpDelete("{countryId}")]

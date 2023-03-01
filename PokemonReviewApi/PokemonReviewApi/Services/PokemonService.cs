@@ -24,7 +24,7 @@ namespace PokemonReviewApi.Services
 
             var pokemonMap = _mapper.Map<PokemonEntity>(createdPokemon);
             _pokemonRepository.CreatePokemon(ownerId, categoryId, pokemonMap);
-            return createdPokemon;
+            return _mapper.Map<Pokemon>(pokemonMap);
         }
         public void DeletePokemon(int pokeId)
         {
@@ -85,7 +85,7 @@ namespace PokemonReviewApi.Services
             var pokemonMap = _mapper.Map<PokemonEntity>(updatedPokemon);
             pokemonMap.Id = pokeId;
             _pokemonRepository.UpdatePokemon(ownerId, categoryId, pokemonMap);
-            return updatedPokemon;
+            return _mapper.Map<Pokemon>(pokemonMap);
         }
     }
 }

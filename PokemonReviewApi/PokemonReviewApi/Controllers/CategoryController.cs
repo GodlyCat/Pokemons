@@ -31,30 +31,30 @@ namespace PokemonReviewApi.Controllers
         [HttpGet("{categoryId}")]
         [ProducesResponseType(200, Type = typeof(CategoryEntity))]
         [ProducesResponseType(400)]
-        public CategoryShortViewModel GetCategory(int categoryId)
+        public CategoryViewModel GetCategory(int categoryId)
         {
-            return _mapper.Map<CategoryShortViewModel>(_categoryService.GetCategoryById(categoryId));
+            return _mapper.Map<CategoryViewModel>(_categoryService.GetCategoryById(categoryId));
         }
 
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public CategoryShortViewModel CreateCategory([FromBody] CategoryShortViewModel categoryCreate)
+        public CategoryViewModel CreateCategory([FromBody] CategoryShortViewModel categoryCreate)
         {
             var categoryMap= _mapper.Map<Category>(categoryCreate);
             _categoryService.CreateCategory(categoryMap);
-            return categoryCreate;
+            return _mapper.Map<CategoryViewModel>(categoryMap);
         }
 
         [HttpPut("{categoryId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public CategoryShortViewModel UpdateCategory([FromQuery] int categoryId, [FromBody] CategoryShortViewModel updatedCategory)
+        public CategoryViewModel UpdateCategory([FromQuery] int categoryId, [FromBody] CategoryShortViewModel updatedCategory)
         {
             var categoryMap = _mapper.Map<Category>(updatedCategory);
             _categoryService.UpdateCategory(categoryId, categoryMap);
-            return updatedCategory;
+            return _mapper.Map<CategoryViewModel>(categoryMap);
         }
 
         [HttpDelete("{categoryId}")]

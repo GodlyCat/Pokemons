@@ -30,45 +30,45 @@ namespace PokemonReviewApi.Controllers
 
         [HttpGet("Pokemon/{pokeId}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<OwnerEntity>))]
-        public List<OwnerShortViewModel> GetOwnersByPokeId(int pokeId)
+        public List<OwnerViewModel> GetOwnersByPokeId(int pokeId)
         {
-            return _mapper.Map<List<OwnerShortViewModel>>(_ownerService.GetOwnersByPokeId(pokeId));
+            return _mapper.Map<List<OwnerViewModel>>(_ownerService.GetOwnersByPokeId(pokeId));
         }
 
         [HttpGet("Country/{countryId}")] //works pretty good
         [ProducesResponseType(200, Type = typeof(IEnumerable<OwnerEntity>))]
-        public List<OwnerShortViewModel> GetOwnersByCountryId(int countryId)
+        public List<OwnerViewModel> GetOwnersByCountryId(int countryId)
         {
-            return _mapper.Map<List<OwnerShortViewModel>>(_ownerService.GetOwnersByCountryId(countryId));
+            return _mapper.Map<List<OwnerViewModel>>(_ownerService.GetOwnersByCountryId(countryId));
         }
 
         [HttpGet("{ownerId}")]
         [ProducesResponseType(200, Type = typeof(OwnerEntity))]
         [ProducesResponseType(400)]
-        public OwnerShortViewModel GetOwner(int ownerId)
+        public OwnerViewModel GetOwner(int ownerId)
         {
-            return _mapper.Map<OwnerShortViewModel>(_ownerService.GetOwnerById(ownerId));
+            return _mapper.Map<OwnerViewModel>(_ownerService.GetOwnerById(ownerId));
         }
 
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public OwnerShortViewModel CreateOwner([FromQuery] int countryId, [FromBody] OwnerShortViewModel ownerCreate)
+        public OwnerViewModel CreateOwner([FromQuery] int countryId, [FromBody] OwnerShortViewModel ownerCreate)
         {
             var ownerMap = _mapper.Map<Owner>(ownerCreate);
             _ownerService.CreateOwner(countryId, ownerMap);
-            return ownerCreate;
+            return _mapper.Map<OwnerViewModel>(ownerMap);
         }
 
         [HttpPut]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public OwnerShortViewModel UpdateOwner([FromQuery] int countryId, [FromQuery] int ownerId, [FromBody] OwnerShortViewModel updatedOwner)
+        public OwnerViewModel UpdateOwner([FromQuery] int countryId, [FromQuery] int ownerId, [FromBody] OwnerShortViewModel updatedOwner)
         {
             var ownerMap = _mapper.Map<Owner>(updatedOwner);
             _ownerService.UpdateOwner(countryId, ownerId, ownerMap);
-            return updatedOwner;
+            return _mapper.Map<OwnerViewModel>(ownerMap);
         }
 
         [HttpDelete("{ownerId}")]

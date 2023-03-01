@@ -18,6 +18,7 @@ namespace PokemonReviewApi.Controllers
         public PokemonController(IPokemonService pokemonService, IMapper mapper)
         {
             _pokemonService = pokemonService;
+            _mapper = mapper;
         }
         
         [HttpGet]
@@ -30,9 +31,9 @@ namespace PokemonReviewApi.Controllers
         [HttpGet("{pokeId:int}")]
         [ProducesResponseType(200, Type = typeof(PokemonEntity))]
         [ProducesResponseType(400)]
-        public PokemonShortViewModel GetPokemon(int pokeId)
+        public PokemonViewModel GetPokemon(int pokeId)
         {
-            return _mapper.Map<PokemonShortViewModel>(_pokemonService.GetPokemonById(pokeId));
+            return _mapper.Map<PokemonViewModel>(_pokemonService.GetPokemonById(pokeId));
         }
 
         [HttpGet("pokemon/{categoryId}")]
@@ -46,9 +47,9 @@ namespace PokemonReviewApi.Controllers
         [HttpGet("{ownerId}/pokemon")]
         [ProducesResponseType(200, Type = typeof(OwnerEntity))]
         [ProducesResponseType(400)]
-        public List<PokemonShortViewModel> GetPokemonByOwner(int ownerId)
+        public List<PokemonViewModel> GetPokemonByOwner(int ownerId)
         {
-            return _mapper.Map<List<PokemonShortViewModel>>(_pokemonService.GetPokemonsByOwnerId(ownerId));
+            return _mapper.Map<List<PokemonViewModel>>(_pokemonService.GetPokemonsByOwnerId(ownerId));
         }
 
         [HttpGet("{pokeId}/health")]
@@ -68,30 +69,30 @@ namespace PokemonReviewApi.Controllers
         }
 
         [HttpGet("{Name}")]
-        public PokemonShortViewModel GetPokemonByName(string Name)
+        public PokemonViewModel GetPokemonByName(string Name)
         {
-            return _mapper.Map<PokemonShortViewModel>(_pokemonService.GetPokemonByName(Name));
+            return _mapper.Map<PokemonViewModel>(_pokemonService.GetPokemonByName(Name));
         }
         
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public PokemonShortViewModel CreatePokemon([FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel pokemonCreate)
+        public PokemonViewModel CreatePokemon([FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel pokemonCreate)
         {
             var pokeMap = _mapper.Map<Pokemon>(pokemonCreate);
             _pokemonService.CreatePokemon(ownerId, catId, pokeMap);
-            return pokemonCreate;
+            return _mapper.Map<PokemonViewModel>(pokeMap);
         }
 
         [HttpPut("{pokeId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public PokemonShortViewModel UpdatePokemon([FromQuery] int pokeId, [FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel updatedPokemon)
+        public PokemonViewModel UpdatePokemon([FromQuery] int pokeId, [FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel updatedPokemon)
         {
             var pokeMap = _mapper.Map<Pokemon>(updatedPokemon);
             _pokemonService.UpdatePokemon(pokeId, ownerId, catId, pokeMap);
-            return updatedPokemon;
+            return _mapper.Map<PokemonViewModel>(pokeMap);
         }
 
         [HttpDelete("{pokeId}")]
