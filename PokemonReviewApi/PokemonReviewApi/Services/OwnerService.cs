@@ -27,8 +27,8 @@ namespace PokemonReviewApi.Services
 
             var ownerMap = _mapper.Map<OwnerEntity>(createdOwner);
             ownerMap.Country = _countryRepository.GetCountryById(countryId);
-            _ownerRepository.CreateOwner(ownerMap);
-            return _mapper.Map<Owner>(ownerMap);
+            var ownerModelMap = _ownerRepository.CreateOwner(ownerMap);
+            return _mapper.Map<Owner>(ownerModelMap);
         }
 
         public void DeleteOwner(int ownerId)
@@ -71,8 +71,8 @@ namespace PokemonReviewApi.Services
             var ownerMap = _mapper.Map<OwnerEntity>(updatedOwner);
             ownerMap.Id = ownerId;
             ownerMap.CountryId = countryId;
-            _ownerRepository.UpdateOwner(ownerMap);
-            return _mapper.Map<Owner>(ownerMap);
+            var ownerModelMap = _ownerRepository.UpdateOwner(ownerMap);
+            return _mapper.Map<Owner>(ownerModelMap);
         }
     }
 }

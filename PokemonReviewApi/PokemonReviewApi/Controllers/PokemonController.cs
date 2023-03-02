@@ -80,8 +80,8 @@ namespace PokemonReviewApi.Controllers
         public PokemonViewModel CreatePokemon([FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel pokemonCreate)
         {
             var pokeMap = _mapper.Map<Pokemon>(pokemonCreate);
-            _pokemonService.CreatePokemon(ownerId, catId, pokeMap);
-            return _mapper.Map<PokemonViewModel>(pokeMap);
+            var pokemonViewModelMap = _pokemonService.CreatePokemon(ownerId, catId, pokeMap);
+            return _mapper.Map<PokemonViewModel>(pokemonViewModelMap);
         }
 
         [HttpPut("{pokeId}")]
@@ -91,8 +91,8 @@ namespace PokemonReviewApi.Controllers
         public PokemonViewModel UpdatePokemon([FromQuery] int pokeId, [FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel updatedPokemon)
         {
             var pokeMap = _mapper.Map<Pokemon>(updatedPokemon);
-            _pokemonService.UpdatePokemon(pokeId, ownerId, catId, pokeMap);
-            return _mapper.Map<PokemonViewModel>(pokeMap);
+            var pokemonViewModelMap = _pokemonService.UpdatePokemon(pokeId, ownerId, catId, pokeMap);
+            return _mapper.Map<PokemonViewModel>(pokemonViewModelMap);
         }
 
         [HttpDelete("{pokeId}")]

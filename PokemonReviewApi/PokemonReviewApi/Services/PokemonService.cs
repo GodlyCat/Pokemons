@@ -23,8 +23,8 @@ namespace PokemonReviewApi.Services
                .FirstOrDefault(c => c.Name.Trim().ToUpper() == createdPokemon.Name.TrimEnd().ToUpper());
 
             var pokemonMap = _mapper.Map<PokemonEntity>(createdPokemon);
-            _pokemonRepository.CreatePokemon(ownerId, categoryId, pokemonMap);
-            return _mapper.Map<Pokemon>(pokemonMap);
+            var pokemonModelMap = _pokemonRepository.CreatePokemon(ownerId, categoryId, pokemonMap);
+            return _mapper.Map<Pokemon>(pokemonModelMap);
         }
         public void DeletePokemon(int pokeId)
         {
@@ -84,8 +84,8 @@ namespace PokemonReviewApi.Services
         {
             var pokemonMap = _mapper.Map<PokemonEntity>(updatedPokemon);
             pokemonMap.Id = pokeId;
-            _pokemonRepository.UpdatePokemon(ownerId, categoryId, pokemonMap);
-            return _mapper.Map<Pokemon>(pokemonMap);
+            var pokemonModelMap = _pokemonRepository.UpdatePokemon(ownerId, categoryId, pokemonMap);
+            return _mapper.Map<Pokemon>(pokemonModelMap);
         }
     }
 }

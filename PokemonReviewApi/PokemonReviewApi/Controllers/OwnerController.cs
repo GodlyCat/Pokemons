@@ -56,8 +56,8 @@ namespace PokemonReviewApi.Controllers
         public OwnerViewModel CreateOwner([FromQuery] int countryId, [FromBody] OwnerShortViewModel ownerCreate)
         {
             var ownerMap = _mapper.Map<Owner>(ownerCreate);
-            _ownerService.CreateOwner(countryId, ownerMap);
-            return _mapper.Map<OwnerViewModel>(ownerMap);
+            var ownerViewModelMap = _ownerService.CreateOwner(countryId, ownerMap);
+            return _mapper.Map<OwnerViewModel>(ownerViewModelMap);
         }
 
         [HttpPut]
@@ -67,8 +67,8 @@ namespace PokemonReviewApi.Controllers
         public OwnerViewModel UpdateOwner([FromQuery] int countryId, [FromQuery] int ownerId, [FromBody] OwnerShortViewModel updatedOwner)
         {
             var ownerMap = _mapper.Map<Owner>(updatedOwner);
-            _ownerService.UpdateOwner(countryId, ownerId, ownerMap);
-            return _mapper.Map<OwnerViewModel>(ownerMap);
+            var ownerViewModelMap = _ownerService.UpdateOwner(countryId, ownerId, ownerMap);
+            return _mapper.Map<OwnerViewModel>(ownerViewModelMap);
         }
 
         [HttpDelete("{ownerId}")]

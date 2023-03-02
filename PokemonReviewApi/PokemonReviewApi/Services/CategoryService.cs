@@ -24,8 +24,8 @@ namespace PokemonReviewApi.Services
            .FirstOrDefault(c => c.Name.Trim().ToUpper() == createdCategory.Name.TrimEnd().ToUpper());
 
             var categoryMap = _mapper.Map<CategoryEntity>(createdCategory);
-            _categoryRepository.CreateCategory(categoryMap);
-            return _mapper.Map<Category>(categoryMap);
+            var categoryModelMap = _categoryRepository.CreateCategory(categoryMap);
+            return _mapper.Map<Category>(categoryModelMap);
         }
 
         public void DeleteCategory(int categoryId)
@@ -50,9 +50,9 @@ namespace PokemonReviewApi.Services
         {
             var categoryMap = _mapper.Map<CategoryEntity>(updatedCategory);
             categoryMap.Id = categoryId;
-            _categoryRepository.UpdateCategory(categoryMap);
+            var categoryModelMap = _categoryRepository.UpdateCategory(categoryMap);
 
-            return _mapper.Map<Category>(categoryMap);
+            return _mapper.Map<Category>(categoryModelMap);
         }
     }
 }

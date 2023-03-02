@@ -42,8 +42,8 @@ namespace PokemonReviewApi.Controllers
         public CategoryViewModel CreateCategory([FromBody] CategoryShortViewModel categoryCreate)
         {
             var categoryMap= _mapper.Map<Category>(categoryCreate);
-            _categoryService.CreateCategory(categoryMap);
-            return _mapper.Map<CategoryViewModel>(categoryMap);
+            var categoryViewModelMap = _categoryService.CreateCategory(categoryMap);
+            return _mapper.Map<CategoryViewModel>(categoryViewModelMap);
         }
 
         [HttpPut("{categoryId}")]
@@ -53,8 +53,8 @@ namespace PokemonReviewApi.Controllers
         public CategoryViewModel UpdateCategory([FromQuery] int categoryId, [FromBody] CategoryShortViewModel updatedCategory)
         {
             var categoryMap = _mapper.Map<Category>(updatedCategory);
-            _categoryService.UpdateCategory(categoryId, categoryMap);
-            return _mapper.Map<CategoryViewModel>(categoryMap);
+            var categoryViewModelMap = _categoryService.UpdateCategory(categoryId, categoryMap);
+            return _mapper.Map<CategoryViewModel>(categoryViewModelMap);
         }
 
         [HttpDelete("{categoryId}")]

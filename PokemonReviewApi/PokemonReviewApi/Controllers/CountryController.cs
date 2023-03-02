@@ -51,8 +51,8 @@ namespace PokemonReviewApi.Controllers
         public CountryViewModel CreateCountry([FromBody] CountryShortViewModel countryCreate)
         {
             var countryMap = _mapper.Map<Country>(countryCreate);
-            _countryService.CreateCountry(countryMap);
-            return _mapper.Map<CountryViewModel>(countryMap);
+            var countryViewModelMap = _countryService.CreateCountry(countryMap);
+            return _mapper.Map<CountryViewModel>(countryViewModelMap);
         }
 
         [HttpPut("{countryId}")]
@@ -62,8 +62,8 @@ namespace PokemonReviewApi.Controllers
         public CountryViewModel UpdateCountry([FromQuery] int countryId, [FromBody] CountryShortViewModel updatedCountry)
         {
             var countryMap = _mapper.Map<Country>(updatedCountry);
-            _countryService.UpdateCountry(countryId, countryMap);
-            return _mapper.Map<CountryViewModel>(countryMap);
+            var countryViewModelMap = _countryService.UpdateCountry(countryId, countryMap);
+            return _mapper.Map<CountryViewModel>(countryViewModelMap);
         }
 
         [HttpDelete("{countryId}")]
