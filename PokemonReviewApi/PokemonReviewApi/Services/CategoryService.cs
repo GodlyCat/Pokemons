@@ -1,11 +1,10 @@
 using AutoMapper;
-using PokemonReviewApi.Entities;
-using PokemonReviewApi.Models;
-using PokemonReviewApi.Interfaces;
-using PokemonReviewApi.Services.IServices;
-using PokemonReviewApi.ViewModels;
+using PokemonBattleApi.Services.IServices;
+using PokemonBattleApi.Entities;
+using PokemonBattleApi.Models;
+using PokemonBattleApi.Interfaces;
 
-namespace PokemonReviewApi.Services
+namespace PokemonBattleApi.Services
 {
     public class CategoryService : ICategoryService
     {

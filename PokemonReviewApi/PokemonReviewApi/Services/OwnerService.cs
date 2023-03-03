@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using PokemonReviewApi.Entities;
-using PokemonReviewApi.Models;
-using PokemonReviewApi.Interfaces;
-using PokemonReviewApi.Services.IServices;
-using PokemonReviewApi.ViewModels;
+using PokemonBattleApi.Models;
+using PokemonBattleApi.Entities;
+using PokemonBattleApi.Interfaces;
+using PokemonBattleApi.Services.IServices;
 
-namespace PokemonReviewApi.Services
+namespace PokemonBattleApi.Services
 {
     public class OwnerService : IOwnerService
     {

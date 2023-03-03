@@ -1,8 +1,8 @@
-﻿using PokemonReviewApi.Data;
-using PokemonReviewApi.Entities;
-using PokemonReviewApi.Interfaces;
+﻿using PokemonBattleApi.Data;
+using PokemonBattleApi.Entities;
+using PokemonBattleApi.Interfaces;
 
-namespace PokemonReviewApi.Repository
+namespace PokemonBattleApi.Repository
 {
     public class PokemonRepository : IPokemonRepository
     {

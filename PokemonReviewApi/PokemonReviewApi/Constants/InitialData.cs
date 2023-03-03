@@ -1,6 +1,6 @@
-﻿using PokemonReviewApi.Entities;
+﻿using PokemonBattleApi.Entities;
 
-namespace PokemonReviewApi.Constants
+namespace PokemonBattleApi.Constants
 {
     public static class InitialData
     {
@@ -11,7 +11,7 @@ namespace PokemonReviewApi.Constants
             new() { Id = 2, Name = "Dark" },
             new() { Id = 3, Name = "Flying" }
             };
-            
+
         }
         public static List<CountryEntity> GetCountries()
         {

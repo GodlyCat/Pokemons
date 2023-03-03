@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using PokemonReviewApi;
-using PokemonReviewApi.Data;
-using PokemonReviewApi.Interfaces;
-using PokemonReviewApi.Repository;
-using PokemonReviewApi.Services;
-using PokemonReviewApi.Services.IServices;
+using PokemonBattleApi.Data;
+using PokemonBattleApi.Interfaces;
+using PokemonBattleApi.Repository;
+using PokemonBattleApi.Services;
+using PokemonBattleApi.Services.IServices;
+using PokemonBattleApi;
 using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 

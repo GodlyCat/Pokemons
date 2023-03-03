@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PokemonReviewApi.Constants;
-using PokemonReviewApi.Entities;
+using PokemonBattleApi.Constants;
+using PokemonBattleApi.Entities;
 using System.Diagnostics.Metrics;
-namespace PokemonReviewApi.Data
+namespace PokemonBattleApi.Data
 {
     public class DataContext : DbContext
     {

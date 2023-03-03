@@ -1,4 +1,4 @@
-﻿namespace PokemonReviewApi.ViewModels
+﻿namespace PokemonBattleApi.ViewModels
 {
     public class CategoryViewModel
     {

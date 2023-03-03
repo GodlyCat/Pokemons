@@ -1,7 +1,6 @@
-using PokemonReviewApi.Models;
-using PokemonReviewApi.ViewModels;
+using PokemonBattleApi.Models;
 
-namespace PokemonReviewApi.Services.IServices
+namespace PokemonBattleApi.Services.IServices
 {
     public interface IOwnerService
     {

@@ -1,13 +1,13 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using PokemonReviewApi.ViewModels;
 using System.Diagnostics.Metrics;
-using PokemonReviewApi.Entities;
-using PokemonReviewApi.Models;
-using PokemonReviewApi.Interfaces;
-using PokemonReviewApi.Services.IServices;
+using PokemonBattleApi.Interfaces;
+using PokemonBattleApi.Services.IServices;
+using PokemonBattleApi.ViewModels;
+using PokemonBattleApi.Entities;
+using PokemonBattleApi.Models;
 
-namespace PokemonReviewApi.Controllers
+namespace PokemonBattleApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -21,7 +21,7 @@ namespace PokemonReviewApi.Controllers
             _countryService = countryService;
             _mapper = mapper;
         }
-        
+
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CountryEntity>))]
         public List<CountryViewModel> GetCountries()
@@ -33,7 +33,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(200, Type = typeof(CountryEntity))]
         [ProducesResponseType(400)]
         public CountryViewModel GetCountryById(int countryId) // should match with httpGet"{countryId}"
-        {           
+        {
             return _mapper.Map<CountryViewModel>(_countryService.GetCountryById(countryId));
         }
 

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using PokemonReviewApi.Entities;
-using PokemonReviewApi.Models;
+using PokemonBattleApi.Entities;
+using PokemonBattleApi.Models;
 
-namespace PokemonReviewApi.Mappings
+namespace PokemonBattleApi.Mappings
 {
     public class BllMappingProfiles : Profile
     {

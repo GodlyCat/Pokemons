@@ -1,7 +1,7 @@
-﻿using PokemonReviewApi.Entities;
+﻿using PokemonBattleApi.Entities;
 using System.Diagnostics.Metrics;
 
-namespace PokemonReviewApi.Interfaces
+namespace PokemonBattleApi.Interfaces
 {
     public interface ICountryRepository
     {

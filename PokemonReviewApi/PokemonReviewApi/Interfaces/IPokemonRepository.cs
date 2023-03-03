@@ -1,6 +1,6 @@
-﻿using PokemonReviewApi.Entities;
+﻿using PokemonBattleApi.Entities;
 
-namespace PokemonReviewApi.Interfaces
+namespace PokemonBattleApi.Interfaces
 {
     public interface IPokemonRepository
     {
