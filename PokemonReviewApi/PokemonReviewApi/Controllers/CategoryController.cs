@@ -1,23 +1,23 @@
-﻿using AutoMapper;
+using AutoMapper;
+using PokemonReviewApi.Helper;
 using Microsoft.AspNetCore.Mvc;
 using PokemonReviewApi.ViewModels;
-using PokemonReviewApi.Interfaces;
 using PokemonReviewApi.Entities;
-using PokemonReviewApi.Repository;
 using PokemonReviewApi.Services.IServices;
-
+using PokemonReviewApi.Models;
+using System.Collections.Generic;
 namespace PokemonReviewApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
     public class CategoryController : Controller
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
 
-        public CategoryController(ICategoryRepository categoryRepository, IMapper mapper) 
+        public CategoryController(ICategoryService categoryService, IMapper mapper) 
         {
-            _categoryRepository = categoryRepository;
+            _categoryService = categoryService;
             _mapper = mapper;
         }
 
@@ -25,57 +25,46 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<CategoryEntity>))]
         public List<CategoryViewModel> GetCategories()
         {
-            var categories = _mapper.Map<List<CategoryViewModel>>(_categoryRepository.GetCategories()); //without automapper - var categories = _categoryRepository.GetCategory()
-
-            return categories;
+            return _mapper.Map<List<CategoryViewModel>>(_categoryService.GetCategories());
         }
 
         [HttpGet("{categoryId}")]
         [ProducesResponseType(200, Type = typeof(CategoryEntity))]
         [ProducesResponseType(400)]
-        public CategoryShortViewModel GetCategory(int categoryId)
+        public CategoryViewModel GetCategory(int categoryId)
         {
-            var category = _mapper.Map<CategoryShortViewModel>(_categoryRepository.GetCategoryById(categoryId));
-
-
-            return category;
+            return _mapper.Map<CategoryViewModel>(_categoryService.GetCategoryById(categoryId));
         }
 
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public CategoryEntity CreateCategory([FromBody] CategoryShortViewModel categoryCreate)
+        public CategoryViewModel CreateCategory([FromBody] CategoryShortViewModel categoryCreate)
         {
-            var category = _categoryRepository.GetCategories()
-                .FirstOrDefault(c => c.Name.Trim().ToUpper() == categoryCreate.Name.TrimEnd().ToUpper());
-
-            var categoryMap = _mapper.Map<CategoryEntity>(categoryCreate);
-            _categoryRepository.CreateCategory(categoryMap);
-            return category;
+            var categoryMap= _mapper.Map<Category>(categoryCreate);
+            var categoryViewModelMap = _categoryService.CreateCategory(categoryMap);
+            return _mapper.Map<CategoryViewModel>(categoryViewModelMap);
         }
 
         [HttpPut("{categoryId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public CategoryShortViewModel UpdateCategory([FromQuery] int categoryId, [FromBody] CategoryShortViewModel updatedCategory)
+        public CategoryViewModel UpdateCategory([FromQuery] int categoryId, [FromBody] CategoryShortViewModel updatedCategory)
         {
-            var categoryMap = _mapper.Map<CategoryEntity>( updatedCategory);
-            categoryMap.Id = categoryId;
-            _categoryRepository.UpdateCategory(categoryMap);
-           
-            return updatedCategory;
+            var categoryMap = _mapper.Map<Category>(updatedCategory);
+            var categoryViewModelMap = _categoryService.UpdateCategory(categoryId, categoryMap);
+            return _mapper.Map<CategoryViewModel>(categoryViewModelMap);
         }
 
         [HttpDelete("{categoryId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public CategoryEntity DeleteCategory(int categoryId)
+        public CategoryViewModel DeleteCategory(int categoryId)
         {
-            var categoryToDelete = _categoryRepository.GetCategoryById(categoryId);
-            _categoryRepository.DeleteCategory(categoryToDelete);
-            return categoryToDelete;
+            _categoryService.DeleteCategory(categoryId);
+            return null;
         }
     }
 }

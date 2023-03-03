@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PokemonReviewApi.ViewModels;
-using PokemonReviewApi.Entities;
+using PokemonReviewApi.Models;
 
 namespace PokemonReviewApi.Helper
 {
@@ -8,20 +8,14 @@ namespace PokemonReviewApi.Helper
     {
         public MappingProfiles()
         {
-            CreateMap<CategoryEntity, CategoryViewModel>().ReverseMap();
-            CreateMap<CategoryShortViewModel, CategoryEntity>().ReverseMap();
-
-            CreateMap<CountryEntity, CountryViewModel>().ReverseMap();
-            CreateMap<CountryShortViewModel, CountryEntity>().ReverseMap();
-
-            CreateMap<OwnerEntity, OwnerViewModel>().ReverseMap();
-            CreateMap<OwnerShortViewModel, OwnerEntity>().ReverseMap();
-
-            CreateMap<PokemonEntity, PokemonViewModel>().ReverseMap();
-            CreateMap<PokemonShortViewModel, PokemonEntity>().ReverseMap();
-           
-            
-            
+            CreateMap<Category, CategoryViewModel>().ReverseMap();
+            CreateMap<CategoryShortViewModel, Category>().ReverseMap();
+            CreateMap<Country, CountryViewModel>().ReverseMap();
+            CreateMap<CountryShortViewModel, Country>().ReverseMap();
+            CreateMap<Owner, OwnerViewModel>().ReverseMap();
+            CreateMap<OwnerShortViewModel, Owner>().ReverseMap();
+            CreateMap<Pokemon, PokemonViewModel>().ReverseMap();
+            CreateMap<PokemonShortViewModel, Pokemon>().ReverseMap();
         }
     }
 }

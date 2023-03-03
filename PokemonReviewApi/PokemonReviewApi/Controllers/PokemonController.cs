@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PokemonReviewApi.ViewModels;
 using PokemonReviewApi.Repository;
-using PokemonReviewApi.Interfaces;
+using PokemonReviewApi.Models;
 using PokemonReviewApi.Entities;
 using PokemonReviewApi.Services.IServices;
 
@@ -12,14 +12,11 @@ namespace PokemonReviewApi.Controllers
     [ApiController]
     public class PokemonController : Controller
     {
-        private readonly IPokemonRepository _pokemonRepository;
         private readonly IPokemonService _pokemonService;
-        private readonly IOwnerRepository _ownerRepository;
         private readonly IMapper _mapper;
 
-        public PokemonController(IPokemonRepository pokemonRepository, IPokemonService pokemonService, IMapper mapper)
+        public PokemonController(IPokemonService pokemonService, IMapper mapper)
         {
-            _pokemonRepository = pokemonRepository;
             _pokemonService = pokemonService;
             _mapper = mapper;
         }
@@ -28,40 +25,31 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<PokemonEntity>))]
         public List<PokemonViewModel> GetPokemons()
         {
-            var pokemons = _mapper.Map<List<PokemonViewModel>>(_pokemonRepository.GetPokemons()); //without automapper - var pokemons = _pokemonRepository.GetPokemons()
-
-            return pokemons;
+            return _mapper.Map<List<PokemonViewModel>>(_pokemonService.GetPokemons());
         }
 
         [HttpGet("{pokeId:int}")]
         [ProducesResponseType(200, Type = typeof(PokemonEntity))]
         [ProducesResponseType(400)]
-        public PokemonShortViewModel GetPokemon(int pokeId)
+        public PokemonViewModel GetPokemon(int pokeId)
         {
-
-            var pokemon = _mapper.Map<PokemonShortViewModel>(_pokemonRepository.GetPokemonById(pokeId));
-
-            return pokemon;
+            return _mapper.Map<PokemonViewModel>(_pokemonService.GetPokemonById(pokeId));
         }
 
         [HttpGet("pokemon/{categoryId}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<PokemonEntity>))]
         [ProducesResponseType(400)]
-        public List<PokemonEntity> GetPokemonByCategoryId(int categoryId)
+        public List<PokemonViewModel> GetPokemonByCategoryId(int categoryId)
         {
-            var pokemons = _mapper.Map<List<PokemonEntity>>(_pokemonRepository.GetPokemonsByCategoryId(categoryId));
-
-            return pokemons;
+            return _mapper.Map<List<PokemonViewModel>>(_pokemonService.GetPokemonsByCategoryId(categoryId));
         }
 
         [HttpGet("{ownerId}/pokemon")]
         [ProducesResponseType(200, Type = typeof(OwnerEntity))]
         [ProducesResponseType(400)]
-        public List<PokemonShortViewModel> GetPokemonByOwner(int ownerId)
+        public List<PokemonViewModel> GetPokemonByOwner(int ownerId)
         {
-            var owner = _mapper.Map<List<PokemonShortViewModel>>(_pokemonRepository.GetPokemonsByOwnerId(ownerId));
-
-            return owner;
+            return _mapper.Map<List<PokemonViewModel>>(_pokemonService.GetPokemonsByOwnerId(ownerId));
         }
 
         [HttpGet("{pokeId}/health")]
@@ -69,9 +57,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public int GetPokemonHealth(int pokeId)
         {
-            var health = _pokemonRepository.GetPokemonHealth(pokeId);
-
-            return health;
+            return _pokemonService.GetPokemonHealth(pokeId);
         }
 
         [HttpGet("{pokeId}/damage")]
@@ -79,52 +65,44 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public int GetPokemonDamage(int pokeId)
         {
-            var damage = _pokemonRepository.GetPokemonDamage(pokeId);
-            return damage;
+            return _pokemonService.GetPokemonDamage(pokeId);
         }
 
         [HttpGet("{Name}")]
-        public PokemonShortViewModel GetPokemonByName(string Name)
+        public PokemonViewModel GetPokemonByName(string Name)
         {
-            var pokeName = _mapper.Map<PokemonShortViewModel>(_pokemonRepository.GetPokemonByName(Name));
-            return pokeName;
+            return _mapper.Map<PokemonViewModel>(_pokemonService.GetPokemonByName(Name));
         }
         
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public PokemonShortViewModel CreatePokemon([FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel pokemonCreate)
+        public PokemonViewModel CreatePokemon([FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel pokemonCreate)
         {
-
-            var pokemons = _pokemonRepository.GetPokemons()
-                .FirstOrDefault(c => c.Name.Trim().ToUpper() == pokemonCreate.Name.TrimEnd().ToUpper());
-
-            var pokemonMap = _mapper.Map<PokemonEntity>(pokemonCreate);
-            _pokemonRepository.CreatePokemon(ownerId, catId, pokemonMap);
-            return pokemonCreate;
+            var pokeMap = _mapper.Map<Pokemon>(pokemonCreate);
+            var pokemonViewModelMap = _pokemonService.CreatePokemon(ownerId, catId, pokeMap);
+            return _mapper.Map<PokemonViewModel>(pokemonViewModelMap);
         }
 
         [HttpPut("{pokeId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public PokemonShortViewModel UpdatePokemon([FromQuery] int pokeId, [FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel updatedPokemon)
+        public PokemonViewModel UpdatePokemon([FromQuery] int pokeId, [FromQuery] int ownerId, [FromQuery] int catId, [FromBody] PokemonShortViewModel updatedPokemon)
         {
-            _pokemonService.UpdatePokemon(pokeId, ownerId, catId, updatedPokemon);
-            return updatedPokemon;
+            var pokeMap = _mapper.Map<Pokemon>(updatedPokemon);
+            var pokemonViewModelMap = _pokemonService.UpdatePokemon(pokeId, ownerId, catId, pokeMap);
+            return _mapper.Map<PokemonViewModel>(pokemonViewModelMap);
         }
 
         [HttpDelete("{pokeId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public PokemonEntity DeletePokemon(int pokeId)
+        public Pokemon DeletePokemon(int pokeId)
         {
-            var pokemonToDelete = _pokemonRepository.GetPokemonById(pokeId);
-
-            _pokemonRepository.DeletePokemon(pokemonToDelete);
-            return pokemonToDelete;
+            _pokemonService.DeletePokemon(pokeId);
+            return null;
         }
-
     }
 }
