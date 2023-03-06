@@ -1,6 +1,5 @@
-﻿using PokemonReviewApi.Entities;
-
-namespace PokemonReviewApi.Models
+﻿
+namespace PokemonBattleApi.Models
 {
     public class PokemonOwner
     {

@@ -1,12 +1,12 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using PokemonReviewApi.ViewModels;
-using PokemonReviewApi.Entities;
-using PokemonReviewApi.Models;
-using PokemonReviewApi.Interfaces;
-using PokemonReviewApi.Services.IServices;
+using PokemonBattleApi.Interfaces;
+using PokemonBattleApi.Models;
+using PokemonBattleApi.Entities;
+using PokemonBattleApi.Services.IServices;
+using PokemonBattleApi.ViewModels;
 
-namespace PokemonReviewApi.Controllers
+namespace PokemonBattleApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -20,7 +20,7 @@ namespace PokemonReviewApi.Controllers
             _ownerService = ownerService;
             _mapper = mapper;
         }
-        
+
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<OwnerEntity>))]
         public List<OwnerViewModel> GetOwners()

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewEngines;
 
-namespace PokemonReviewApi.Entities
+namespace PokemonBattleApi.Entities
 {
     public class PokemonEntity
     {

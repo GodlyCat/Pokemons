@@ -1,12 +1,13 @@
 using AutoMapper;
-using PokemonReviewApi.Helper;
+using PokemonBattleApi.Helper;
 using Microsoft.AspNetCore.Mvc;
-using PokemonReviewApi.ViewModels;
-using PokemonReviewApi.Entities;
-using PokemonReviewApi.Services.IServices;
-using PokemonReviewApi.Models;
 using System.Collections.Generic;
-namespace PokemonReviewApi.Controllers
+using PokemonBattleApi.Services.IServices;
+using PokemonBattleApi.ViewModels;
+using PokemonBattleApi.Entities;
+using PokemonBattleApi.Models;
+
+namespace PokemonBattleApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -15,7 +16,7 @@ namespace PokemonReviewApi.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
 
-        public CategoryController(ICategoryService categoryService, IMapper mapper) 
+        public CategoryController(ICategoryService categoryService, IMapper mapper)
         {
             _categoryService = categoryService;
             _mapper = mapper;
@@ -41,7 +42,7 @@ namespace PokemonReviewApi.Controllers
         [ProducesResponseType(400)]
         public CategoryViewModel CreateCategory([FromBody] CategoryShortViewModel categoryCreate)
         {
-            var categoryMap= _mapper.Map<Category>(categoryCreate);
+            var categoryMap = _mapper.Map<Category>(categoryCreate);
             var categoryViewModelMap = _categoryService.CreateCategory(categoryMap);
             return _mapper.Map<CategoryViewModel>(categoryViewModelMap);
         }

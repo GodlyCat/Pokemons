@@ -1,5 +1,4 @@
-﻿
-namespace PokemonReviewApi.Entities
+﻿namespace PokemonBattleApi.Entities
 {
     public class PokemonOwnerEntity //join table
     {

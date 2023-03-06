@@ -1,4 +1,4 @@
-﻿namespace PokemonReviewApi.Entities
+﻿namespace PokemonBattleApi.Entities
 {
     public class OwnerEntity
     {

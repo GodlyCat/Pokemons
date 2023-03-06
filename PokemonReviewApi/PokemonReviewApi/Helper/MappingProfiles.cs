@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using PokemonReviewApi.ViewModels;
-using PokemonReviewApi.Models;
+using PokemonBattleApi.Models;
+using PokemonBattleApi.ViewModels;
 
-namespace PokemonReviewApi.Helper
+namespace PokemonBattleApi.Helper
 {
     public class MappingProfiles : Profile
     {

@@ -1,12 +1,12 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using PokemonReviewApi.ViewModels;
-using PokemonReviewApi.Repository;
-using PokemonReviewApi.Models;
-using PokemonReviewApi.Entities;
-using PokemonReviewApi.Services.IServices;
+using PokemonBattleApi.Repository;
+using PokemonBattleApi.Entities;
+using PokemonBattleApi.Services.IServices;
+using PokemonBattleApi.ViewModels;
+using PokemonBattleApi.Models;
 
-namespace PokemonReviewApi.Controllers
+namespace PokemonBattleApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -20,7 +20,7 @@ namespace PokemonReviewApi.Controllers
             _pokemonService = pokemonService;
             _mapper = mapper;
         }
-        
+
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<PokemonEntity>))]
         public List<PokemonViewModel> GetPokemons()
@@ -73,7 +73,7 @@ namespace PokemonReviewApi.Controllers
         {
             return _mapper.Map<PokemonViewModel>(_pokemonService.GetPokemonByName(Name));
         }
-        
+
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
