@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PokemonBattleApi.Entities;
-using PokemonBattleApi.Models;
+using PokemonBattle.BLL.Models;
 
 namespace PokemonBattleApi.Mappings
 {
