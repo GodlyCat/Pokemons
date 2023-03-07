@@ -1,5 +1,5 @@
 ﻿
-namespace PokemonBattleApi.Models
+namespace PokemonBattle.BLL.Models
 {
     public class Category
     {
