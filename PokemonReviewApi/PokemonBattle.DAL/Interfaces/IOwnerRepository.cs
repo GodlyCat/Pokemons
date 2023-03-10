@@ -1,6 +1,6 @@
-﻿using PokemonBattleApi.Entities;
+﻿using PokemonBattle.DAL.Entities;
 
-namespace PokemonBattleApi.Interfaces
+namespace PokemonBattle.DAL.Interfaces
 {
     public interface IOwnerRepository
     {

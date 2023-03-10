@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace PokemonBattleApi.Entities
+namespace PokemonBattle.DAL.Entities
 {
     public class PokemonCategoryEntity //join table
     {

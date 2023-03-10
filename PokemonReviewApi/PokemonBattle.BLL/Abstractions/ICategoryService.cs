@@ -1,6 +1,11 @@
-using PokemonBattleApi.Models;
+﻿using PokemonBattle.BLL.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PokemonBattleApi.Services.IServices
+namespace PokemonBattle.BLL.Abstractions
 {
     public interface ICategoryService
     {

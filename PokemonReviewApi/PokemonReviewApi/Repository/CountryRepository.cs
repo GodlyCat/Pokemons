@@ -1,4 +1,5 @@
-﻿using PokemonBattleApi.Data;
+﻿/*
+using PokemonBattleApi.Data;
 using PokemonBattleApi.Entities;
 using PokemonBattleApi.Interfaces;
 using System.Diagnostics.Metrics;
@@ -54,3 +55,4 @@ namespace PokemonBattleApi.Repository
         }
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PokemonBattleApi.Repository;
@@ -106,3 +107,4 @@ namespace PokemonBattleApi.Controllers
         }
     }
 }
+*/
