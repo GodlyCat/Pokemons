@@ -1,3 +1,4 @@
+/*
 using AutoMapper;
 using PokemonBattleApi.Services.IServices;
 using PokemonBattleApi.Entities;
@@ -65,3 +66,4 @@ namespace PokemonBattleApi.Services
         }
     }
 }
+*/

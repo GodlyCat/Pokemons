@@ -1,4 +1,4 @@
-﻿namespace PokemonBattleApi.Entities
+﻿namespace PokemonBattle.DAL.Entities
 {
     public class PokemonOwnerEntity //join table
     {

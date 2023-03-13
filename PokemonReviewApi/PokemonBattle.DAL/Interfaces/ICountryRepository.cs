@@ -1,7 +1,7 @@
-﻿using PokemonBattleApi.Entities;
+﻿using PokemonBattle.DAL.Entities;
 using System.Diagnostics.Metrics;
 
-namespace PokemonBattleApi.Interfaces
+namespace PokemonBattle.DAL.Interfaces
 {
     public interface ICountryRepository
     {

@@ -1,4 +1,4 @@
-using PokemonBattleApi.Models;
+/*using PokemonBattleApi.Models;
 
 namespace PokemonBattleApi.Services.IServices
 {
@@ -13,3 +13,4 @@ namespace PokemonBattleApi.Services.IServices
         void DeleteOwner(int ownerId);
     }
 }
+*/

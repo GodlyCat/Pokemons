@@ -1,6 +1,6 @@
-﻿using PokemonBattleApi.Entities;
+﻿using PokemonBattle.DAL.Entities;
 
-namespace PokemonBattleApi.Constants
+namespace PokemonBattle.DAL.Constants
 {
     public static class InitialData
     {

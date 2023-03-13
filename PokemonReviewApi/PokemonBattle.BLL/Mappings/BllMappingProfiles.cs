@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using PokemonBattleApi.Entities;
 using PokemonBattle.BLL.Models;
-
-namespace PokemonBattleApi.Mappings
+using PokemonBattle.DAL.Entities;
+namespace PokemonBattle.BLL.Mappings
 {
     public class BllMappingProfiles : Profile
     {

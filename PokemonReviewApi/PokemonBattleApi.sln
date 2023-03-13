@@ -5,11 +5,11 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonBattleApi", "PokemonReviewApi\PokemonBattleApi.csproj", "{914C832C-FDDB-48FE-A95E-40CC47BD22D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonBattle.BLL", "PokemonBattle.BLL\PokemonBattle.BLL.csproj", "{D168CB35-D107-4D6A-812C-D344A1AAAECA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonBattle.BLL", "PokemonBattle.BLL\PokemonBattle.BLL.csproj", "{D168CB35-D107-4D6A-812C-D344A1AAAECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonBattle.DAL", "PokemonBattle.DAL\PokemonBattle.DAL.csproj", "{435FC648-AC41-4170-B330-6900EDB164C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonBattle.DAL", "PokemonBattle.DAL\PokemonBattle.DAL.csproj", "{435FC648-AC41-4170-B330-6900EDB164C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonBattle.BLL.Tests", "PokemonBattle.BLL.Tests\PokemonBattle.BLL.Tests.csproj", "{FBA53920-31E8-4BB0-80CD-505B5DDD8818}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonBattle.BLL.Tests", "PokemonBattle.BLL.Tests\PokemonBattle.BLL.Tests.csproj", "{4F05EBD0-ED9F-428F-8FB6-2D25C7C9EBBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{435FC648-AC41-4170-B330-6900EDB164C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{435FC648-AC41-4170-B330-6900EDB164C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{435FC648-AC41-4170-B330-6900EDB164C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FBA53920-31E8-4BB0-80CD-505B5DDD8818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBA53920-31E8-4BB0-80CD-505B5DDD8818}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBA53920-31E8-4BB0-80CD-505B5DDD8818}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBA53920-31E8-4BB0-80CD-505B5DDD8818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F05EBD0-ED9F-428F-8FB6-2D25C7C9EBBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F05EBD0-ED9F-428F-8FB6-2D25C7C9EBBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F05EBD0-ED9F-428F-8FB6-2D25C7C9EBBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F05EBD0-ED9F-428F-8FB6-2D25C7C9EBBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

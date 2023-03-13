@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿/*
+using AutoMapper;
 using PokemonBattleApi.Models;
 using PokemonBattleApi.ViewModels;
 
@@ -19,3 +20,4 @@ namespace PokemonBattleApi.Helper
         }
     }
 }
+*/

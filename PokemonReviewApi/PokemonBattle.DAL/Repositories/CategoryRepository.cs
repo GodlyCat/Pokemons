@@ -1,8 +1,13 @@
-﻿using PokemonBattleApi.Data;
-using PokemonBattleApi.Entities;
-using PokemonBattleApi.Interfaces;
+﻿using PokemonBattle.DAL.Entities;
+using PokemonBattle.DAL.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PokemonBattle.DAL.Data;
 
-namespace PokemonBattleApi.Repository
+namespace PokemonBattle.DAL.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {

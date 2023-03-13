@@ -1,9 +1,10 @@
 using AutoMapper;
-using PokemonBattleApi.Helper;
+//using PokemonBattleApi.Helper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using PokemonBattleApi.Services.IServices;
+//using PokemonBattleApi.Services.IServices;
 using PokemonBattleApi.ViewModels;
+/*
 using PokemonBattleApi.Entities;
 using PokemonBattleApi.Models;
 
@@ -69,3 +70,4 @@ namespace PokemonBattleApi.Controllers
         }
     }
 }
+*/

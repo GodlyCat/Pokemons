@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using PokemonBattleApi.Data;
-using PokemonBattleApi.Interfaces;
-using PokemonBattleApi.Repository;
-using PokemonBattleApi.Services;
-using PokemonBattleApi.Services.IServices;
+using PokemonBattle.DAL.Data;
+using PokemonBattle.DAL.Interfaces;
+//using PokemonBattleApi.Repository;
+//using PokemonBattleApi.Services;
+//using PokemonBattleApi.Services.IServices;
 using PokemonBattleApi;
 using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
@@ -13,14 +13,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());// mapper relies on automapper and DI nugets, +helper folder
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<ICountryRepository, CountryRepository>();
-builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
-builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
-builder.Services.AddScoped<IPokemonService, PokemonService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<ICountryService, CountryService>();
-builder.Services.AddScoped<IOwnerService, OwnerService>();
+//builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+//builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+//builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
+//builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
+////builder.Services.AddScoped<IPokemonService, PokemonService>();
+//builder.Services.AddScoped<ICategoryService, CategoryService>();
+//builder.Services.AddScoped<ICountryService, CountryService>();
+////builder.Services.AddScoped<IOwnerService, OwnerService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
