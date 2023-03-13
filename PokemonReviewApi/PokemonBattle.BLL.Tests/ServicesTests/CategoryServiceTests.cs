@@ -29,7 +29,7 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
         }
 
         [Fact]
-        public void CategoryService_GetCategories_ReturnsListOfCategories()
+        public void CategoryServiceGetCategories_ReturnsListOfCategories()
         {
             _categoryRepository.Setup(cat => cat.GetCategories())
             .Returns(CategoryEntityData.GetCategories());
@@ -42,7 +42,7 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
             result.Should().BeOfType<List<Category>>();
         }
         [Fact]
-        public void GetCategory_ById_IfEntityExists_ShouldReturnModel()
+        public void GetCategoryById_ValidId_ShouldReturnModel()
         {
             //Arrange
             _categoryRepository.Setup(catId => catId.GetCategoryById(CategoryEntityData.GetCategoryEntity.Id))
@@ -57,7 +57,22 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
             result.Should().BeEquivalentTo(CategoryModelData.GetCategoryModel);
         }
         [Fact]
-        public async Task DeleteById_IfEntityExist_ShouldReturnModel()
+        public void GetCategoryById_InvalidId_ShouldReturnModel()
+        {
+            //Arrange
+            _categoryRepository.Setup(catId => catId.GetCategoryById(CategoryEntityData.GetInvalidCategoryEntity.Id))
+            .Returns(CategoryEntityData.GetInvalidCategoryEntity);
+            _mapper.Setup(m => m.Map<Category>(It.IsAny<CategoryEntity>()))
+            .Returns(CategoryModelData.GetInvalidCategoryModel);
+            //Act
+            var result = _categoryService.GetCategoryById(CategoryEntityData.GetInvalidCategoryEntity.Id);
+            //Assert
+            result.Id.Should().Be(0);
+            result.Should().BeOfType<Category>();
+            result.Should().BeEquivalentTo(CategoryModelData.GetInvalidCategoryModel);
+        }
+        [Fact]
+        public async Task DeleteCategory_ValidId_ShouldReturnModel()
         {
             // Arrange
             _mapper.Setup(m => m.Map<CategoryEntity>(It.IsAny<Category>()))
@@ -81,7 +96,7 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
             result.Should().BeEquivalentTo(CategoryModelData.GetCategoryModel);
         }
         [Fact]
-        public async Task Create_IfCategoryModelIsSet_ShouldReturnCValidModel()
+        public async Task CreateCategory_CategoryModel_ShouldReturnCValidModel()
         {
             // Arrange
             _mapper.Setup(m => m.Map<CategoryEntity>(It.IsAny<Category>()))
@@ -101,7 +116,7 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
             result.Should().BeEquivalentTo(CategoryModelData.GetCategoryModel);
         }
         [Fact]
-        public async Task UpdateCategory_IfCategoryModelIsSet_ShouldReturnValidModel()
+        public async Task UpdateCategory_CategoryModel_ShouldReturnValidModel()
         {
             //Arrange
             _mapper.Setup(m => m.Map<CategoryEntity>(CategoryModelData.UpdateCategoryModel))

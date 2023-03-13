@@ -28,6 +28,8 @@ namespace PokemonBattle.BLL.Tests.TestData.Entities
         }
         internal static CategoryEntity GetCategoryEntity =
             new() { Id = 1, Name= "SteveJobbers"};
+        internal static CategoryEntity GetInvalidCategoryEntity =
+            new() { Id = 0, Name = "SteveGoblers" };
         internal static CategoryEntity UpdateCategoryEntity =
             new() { Id = 3, Name = "Bozos" };
     }

@@ -1,4 +1,5 @@
 ﻿using PokemonBattle.BLL.Models;
+using PokemonBattle.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace PokemonBattle.BLL.Tests.TestData.Models
         }
         internal static Country GetCountryModel =
             new() { Id = 1, Name = "Brazil" };
+        internal static Country GetInvalidCountryModel =
+            new() { Id = 0, Name = "Germany" };
         internal static Country UpdateCountryModel =
             new() { Id = 3, Name = "Chile" };
     }

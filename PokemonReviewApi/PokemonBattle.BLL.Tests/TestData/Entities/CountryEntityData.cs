@@ -28,6 +28,8 @@ namespace PokemonBattle.BLL.Tests.TestData.Entities
         }
         internal static CountryEntity GetCountryEntity =
             new() { Id = 1, Name = "Brazil" };
+        internal static CountryEntity GetInvalidCountryEntity =
+            new() { Id = 0, Name = "Germany" };
         internal static CountryEntity UpdateCountryEntity =
             new() { Id = 3, Name = "Chile" };
     }

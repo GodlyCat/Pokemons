@@ -29,6 +29,8 @@ namespace PokemonBattle.BLL.Tests.TestData.Models
         }
         internal static Category GetCategoryModel =
            new() { Id = 1, Name = "SteveJobbers" };
+        internal static Category GetInvalidCategoryModel =
+            new() { Id = 0, Name = "SteveGoblers" };
         internal static Category UpdateCategoryModel =
            new() { Id = 3, Name = "Bozos" };
     }

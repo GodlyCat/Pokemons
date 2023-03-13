@@ -29,7 +29,7 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
             _countryService = new CountryService(_countryRepository.Object, _mapper.Object);
         }
         [Fact]
-        public void CountryService_GetCountries_ReturnsListOfCountries()
+        public void CountryServiceGetCountries_ReturnsListOfCountries()
         {
             _countryRepository.Setup(cat => cat.GetCountries())
             .Returns(CountryEntityData.GetCountries());
@@ -42,7 +42,7 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
             result.Should().BeOfType<List<Country>>();
         }
         [Fact]
-        public void GetCountry_ById_IfCountryExists_ShouldReturnModel()
+        public void GetCountryById_ValidId_ShouldReturnModel()
         {
             //Arrange
             _countryRepository.Setup(catId => catId.GetCountryById(CountryEntityData.GetCountryEntity.Id))
@@ -57,7 +57,22 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
             result.Should().BeEquivalentTo(CountryModelData.GetCountryModel);
         }
         [Fact]
-        public void GetCountry_ByOwnerId_IfCountryExists_ShouldReturnModel()
+        public void GetCountryById_InvalidId_ShouldReturnModel()
+        {
+            //Arrange
+            _countryRepository.Setup(catId => catId.GetCountryById(CountryEntityData.GetInvalidCountryEntity.Id))
+            .Returns(CountryEntityData.GetInvalidCountryEntity);
+            _mapper.Setup(m => m.Map<Country>(It.IsAny<CountryEntity>()))
+            .Returns(CountryModelData.GetInvalidCountryModel);
+            //Act
+            var result = _countryService.GetCountryById(CountryEntityData.GetInvalidCountryEntity.Id);
+            //Assert
+            result.Id.Should().Be(0);
+            result.Should().BeOfType<Country>();
+            result.Should().BeEquivalentTo(CountryModelData.GetInvalidCountryModel);
+        }
+        [Fact]
+        public void GetCountryByOwnerId_ValidOwnerId_ShouldReturnModel()
         {
             //Arrange
             _countryRepository.Setup(catId => catId.GetCountryByOwnerId(CountryEntityData.GetCountryEntity.Id))
@@ -71,7 +86,21 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
             result.Should().BeOfType<Country>();
             result.Should().BeEquivalentTo(CountryModelData.GetCountryModel);
         }
-        public async Task DeleteById_IfEntityExist_ShouldReturnModel()
+        public void GetCountryByOwnerId_InValidOwnerId_ShouldReturnModel()
+        {
+            //Arrange
+            _countryRepository.Setup(catId => catId.GetCountryByOwnerId(CountryEntityData.GetInvalidCountryEntity.Id))
+            .Returns(CountryEntityData.GetInvalidCountryEntity);
+            _mapper.Setup(m => m.Map<Country>(It.IsAny<CountryEntity>()))
+            .Returns(CountryModelData.GetInvalidCountryModel);
+            //Act
+            var result = _countryService.GetCountryByOwnerId(CountryEntityData.GetInvalidCountryEntity.Id);
+            //Assert
+            result.Id.Should().Be(0);
+            result.Should().BeOfType<Country>();
+            result.Should().BeEquivalentTo(CountryModelData.GetCountryModel);
+        }
+        public async Task DeleteCategory_ValidId_ShouldReturnModel()
         {
             // Arrange
             _mapper.Setup(m => m.Map<CountryEntity>(It.IsAny<Country>()))
@@ -95,7 +124,7 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
             result.Should().BeOfType<Country>();
             result.Should().BeEquivalentTo(CountryModelData.GetCountryModel);
         }
-        public async Task Create_IfCountryModelIsSet_ShouldReturnCValidModel()
+        public async Task CreateCountry_CountryModel_ShouldReturnCValidModel()
         {
             // Arrange
             _mapper.Setup(m => m.Map<CountryEntity>(It.IsAny<Country>()))
@@ -115,7 +144,7 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
             result.Should().BeEquivalentTo(CountryModelData.GetCountryModel);
         }
         [Fact]
-        public async Task UpdateCountry_IfCountryModelIsSet_ShouldReturnValidModel()
+        public async Task UpdateCountry_CountryModel_ShouldReturnValidModel()
         {
             //Arrange
             _mapper.Setup(m => m.Map<CountryEntity>(CountryModelData.UpdateCountryModel))
