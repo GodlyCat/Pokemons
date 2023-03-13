@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PokemonBattle.DAL\PokemonBattle.DAL.csproj" />
-    <ProjectReference Include="..\PokemonReviewApi\PokemonBattleApi.csproj" />
   </ItemGroup>
 
 </Project>

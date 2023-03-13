@@ -165,7 +165,7 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
             _mapperMock.Setup(m => m.Map<Country>(CountryEntityData.ValidUpdateCountryEntity))
                 .Returns(CountryModelData.ValidUpdateCountryModel);
             //Act
-            var result = _countryService.UpdateCountry(CategoryModelData.UpdateCategoryModel.Id, CountryModelData.ValidUpdateCountryModel);
+            var result = _countryService.UpdateCountry(CategoryModelData.ValidUpdateCategoryModel.Id, CountryModelData.ValidUpdateCountryModel);
             //Assert
             _countryRepositoryMock.Verify(r => r.UpdateCountry(CountryEntityData.ValidUpdateCountryEntity));
             result.Should().NotBeNull();
