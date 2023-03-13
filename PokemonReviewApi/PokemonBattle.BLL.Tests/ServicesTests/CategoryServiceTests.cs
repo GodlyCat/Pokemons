@@ -32,9 +32,9 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
         public void CategoryServiceGetCategories_ReturnsListOfCategories()
         {
             _categoryRepositoryMock.Setup(cat => cat.GetCategories())
-            .Returns(CategoryEntityData.GetCategories());
+            .Returns(CategoryEntityData.ValidCategories());
             _mapperMock.Setup(m => m.Map<List<Category>>(It.IsAny<List<CategoryEntity>>()))
-                .Returns(CategoryModelData.GetCategories());
+                .Returns(CategoryModelData.ValidCategories());
             //Act
             var result = _categoryService.GetCategories();
             //Assert
@@ -46,32 +46,32 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
         public void GetCategoryById_ValidId_ShouldReturnModel()
         {
             //Arrange
-            _categoryRepositoryMock.Setup(catId => catId.GetCategoryById(CategoryEntityData.GetCategoryEntity.Id))
-            .Returns(CategoryEntityData.GetCategoryEntity);
+            _categoryRepositoryMock.Setup(catId => catId.GetCategoryById(CategoryEntityData.ValidCategoryEntity.Id))
+            .Returns(CategoryEntityData.ValidCategoryEntity);
             _mapperMock.Setup(m => m.Map<Category>(It.IsAny<CategoryEntity>()))
-            .Returns(CategoryModelData.GetCategoryModel);
+            .Returns(CategoryModelData.ValidCategoryModel);
             //Act
-            var result = _categoryService.GetCategoryById(CategoryEntityData.GetCategoryEntity.Id);
+            var result = _categoryService.GetCategoryById(CategoryEntityData.ValidCategoryEntity.Id);
             //Assert
             result.Should().NotBeNull();
             result.Should().BeOfType<Category>();
-            result.Should().BeEquivalentTo(CategoryModelData.GetCategoryModel);
+            result.Should().BeEquivalentTo(CategoryModelData.ValidCategoryModel);
         }
 
         [Fact]
         public void GetCategoryById_InvalidId_ShouldReturnModel()
         {
             //Arrange
-            _categoryRepositoryMock.Setup(catId => catId.GetCategoryById(CategoryEntityData.GetInvalidCategoryEntity.Id))
-            .Returns(CategoryEntityData.GetInvalidCategoryEntity);
+            _categoryRepositoryMock.Setup(catId => catId.GetCategoryById(CategoryEntityData.InvalidCategoryEntity.Id))
+            .Returns(CategoryEntityData.InvalidCategoryEntity);
             _mapperMock.Setup(m => m.Map<Category>(It.IsAny<CategoryEntity>()))
-            .Returns(CategoryModelData.GetInvalidCategoryModel);
+            .Returns(CategoryModelData.InvalidCategoryModel);
             //Act
-            var result = _categoryService.GetCategoryById(CategoryEntityData.GetInvalidCategoryEntity.Id);
+            var result = _categoryService.GetCategoryById(CategoryEntityData.InvalidCategoryEntity.Id);
             //Assert
             result.Id.Should().Be(0);
             result.Should().BeOfType<Category>();
-            result.Should().BeEquivalentTo(CategoryModelData.GetInvalidCategoryModel);
+            result.Should().BeEquivalentTo(CategoryModelData.InvalidCategoryModel);
         }
 
         [Fact]
@@ -79,25 +79,25 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
         {
             // Arrange
             _mapperMock.Setup(m => m.Map<CategoryEntity>(It.IsAny<Category>()))
-                .Returns(CategoryEntityData.GetCategoryEntity);
-            _categoryRepositoryMock.Setup(r => r.CreateCategory(CategoryEntityData.GetCategoryEntity))
-                .Returns(CategoryEntityData.GetCategoryEntity);
+                .Returns(CategoryEntityData.ValidCategoryEntity);
+            _categoryRepositoryMock.Setup(r => r.CreateCategory(CategoryEntityData.ValidCategoryEntity))
+                .Returns(CategoryEntityData.ValidCategoryEntity);
             _mapperMock.Setup(m => m.Map<Category>(It.IsAny<CategoryEntity>()))
-                .Returns(CategoryModelData.GetCategoryModel);
-            int Id = CategoryEntityData.GetCategoryEntity.Id;
-            var categoryToDelete = CategoryEntityData.GetCategoryEntity;
-            var categoryModelToDelete = CategoryModelData.GetCategoryModel;
+                .Returns(CategoryModelData.ValidCategoryModel);
+            int Id = CategoryEntityData.ValidCategoryEntity.Id;
+            var categoryToDelete = CategoryEntityData.ValidCategoryEntity;
+            var categoryModelToDelete = CategoryModelData.ValidCategoryModel;
             _categoryRepositoryMock.Setup(delId => delId.DeleteCategory(categoryToDelete));
 
             // Act
             var result = _categoryService.CreateCategory(categoryModelToDelete);
-            _categoryService.DeleteCategory(CategoryEntityData.GetCategoryEntity.Id);
+            _categoryService.DeleteCategory(CategoryEntityData.ValidCategoryEntity.Id);
 
             // Assert
             _categoryRepositoryMock.Verify(r => r.DeleteCategory(It.IsAny<CategoryEntity>()));
             result.Should().NotBeNull();
             result.Should().BeOfType<Category>();
-            result.Should().BeEquivalentTo(CategoryModelData.GetCategoryModel);
+            result.Should().BeEquivalentTo(CategoryModelData.ValidCategoryModel);
         }
 
         [Fact]
@@ -105,39 +105,39 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
         {
             // Arrange
             _mapperMock.Setup(m => m.Map<CategoryEntity>(It.IsAny<Category>()))
-                .Returns(CategoryEntityData.GetCategoryEntity);
-            _categoryRepositoryMock.Setup(r => r.CreateCategory(CategoryEntityData.GetCategoryEntity))
-                .Returns(CategoryEntityData.GetCategoryEntity);
+                .Returns(CategoryEntityData.ValidCategoryEntity);
+            _categoryRepositoryMock.Setup(r => r.CreateCategory(CategoryEntityData.ValidCategoryEntity))
+                .Returns(CategoryEntityData.ValidCategoryEntity);
             _mapperMock.Setup(m => m.Map<Category>(It.IsAny<CategoryEntity>()))
-                .Returns(CategoryModelData.GetCategoryModel);
+                .Returns(CategoryModelData.ValidCategoryModel);
 
             // Act
-            var result = _categoryService.CreateCategory(CategoryModelData.GetCategoryModel);
+            var result = _categoryService.CreateCategory(CategoryModelData.ValidCategoryModel);
 
             // Assert
-            _categoryRepositoryMock.Verify(r => r.CreateCategory(CategoryEntityData.GetCategoryEntity));
+            _categoryRepositoryMock.Verify(r => r.CreateCategory(CategoryEntityData.ValidCategoryEntity));
             result.Should().NotBeNull();
             result.Should().BeOfType<Category>();
-            result.Should().BeEquivalentTo(CategoryModelData.GetCategoryModel);
+            result.Should().BeEquivalentTo(CategoryModelData.ValidCategoryModel);
         }
 
         [Fact]
         public async Task UpdateCategory_ValidCategoryModel_ShouldReturnValidModel()
         {
             //Arrange
-            _mapperMock.Setup(m => m.Map<CategoryEntity>(CategoryModelData.UpdateCategoryModel))
-            .Returns(CategoryEntityData.UpdateCategoryEntity);
-            _categoryRepositoryMock.Setup(r => r.UpdateCategory(CategoryEntityData.UpdateCategoryEntity))
-           .Returns(CategoryEntityData.UpdateCategoryEntity);
-            _mapperMock.Setup(m => m.Map<Category>(CategoryEntityData.UpdateCategoryEntity))
-                .Returns(CategoryModelData.UpdateCategoryModel);
+            _mapperMock.Setup(m => m.Map<CategoryEntity>(CategoryModelData.ValidUpdateCategoryModel))
+            .Returns(CategoryEntityData.ValidUpdateCategoryEntity);
+            _categoryRepositoryMock.Setup(r => r.UpdateCategory(CategoryEntityData.ValidUpdateCategoryEntity))
+           .Returns(CategoryEntityData.ValidUpdateCategoryEntity);
+            _mapperMock.Setup(m => m.Map<Category>(CategoryEntityData.ValidUpdateCategoryEntity))
+                .Returns(CategoryModelData.ValidUpdateCategoryModel);
             //Act
-            var result = _categoryService.UpdateCategory(CategoryModelData.UpdateCategoryModel.Id,CategoryModelData.UpdateCategoryModel);
+            var result = _categoryService.UpdateCategory(CategoryModelData.ValidUpdateCategoryModel.Id,CategoryModelData.ValidUpdateCategoryModel);
             //Assert
-            _categoryRepositoryMock.Verify(r => r.UpdateCategory(CategoryEntityData.UpdateCategoryEntity));
+            _categoryRepositoryMock.Verify(r => r.UpdateCategory(CategoryEntityData.ValidUpdateCategoryEntity));
             result.Should().NotBeNull();
             result.Should().BeOfType<Category>();
-            result.Should().NotBeEquivalentTo(CategoryModelData.GetCategoryModel);
+            result.Should().NotBeEquivalentTo(CategoryModelData.ValidCategoryModel);
         }
     }
 }

@@ -33,9 +33,9 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
         public void CountryServiceGetCountries_ReturnsListOfCountries()
         {
             _countryRepositoryMock.Setup(cat => cat.GetCountries())
-            .Returns(CountryEntityData.GetCountries());
+            .Returns(CountryEntityData.ValidCountries());
             _mapperMock.Setup(m => m.Map<List<Country>>(It.IsAny<List<CountryEntity>>()))
-                .Returns(CountryModelData.GetCountries());
+                .Returns(CountryModelData.ValidCountries());
             //Act
             var result = _countryService.GetCountries();
             //Assert
@@ -47,64 +47,64 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
         public void GetCountryById_ValidId_ShouldReturnModel()
         {
             //Arrange
-            _countryRepositoryMock.Setup(catId => catId.GetCountryById(CountryEntityData.GetCountryEntity.Id))
-            .Returns(CountryEntityData.GetCountryEntity);
+            _countryRepositoryMock.Setup(catId => catId.GetCountryById(CountryEntityData.ValidCountryEntity.Id))
+            .Returns(CountryEntityData.ValidCountryEntity);
             _mapperMock.Setup(m => m.Map<Country>(It.IsAny<CountryEntity>()))
-            .Returns(CountryModelData.GetCountryModel);
+            .Returns(CountryModelData.ValidCountryModel);
             //Act
-            var result = _countryService.GetCountryById(CountryEntityData.GetCountryEntity.Id);
+            var result = _countryService.GetCountryById(CountryEntityData.ValidCountryEntity.Id);
             //Assert
             result.Should().NotBeNull();
             result.Should().BeOfType<Country>();
-            result.Should().BeEquivalentTo(CountryModelData.GetCountryModel);
+            result.Should().BeEquivalentTo(CountryModelData.ValidCountryModel);
         }
 
         [Fact]
         public void GetCountryById_InvalidId_ShouldReturnModel()
         {
             //Arrange
-            _countryRepositoryMock.Setup(catId => catId.GetCountryById(CountryEntityData.GetInvalidCountryEntity.Id))
-            .Returns(CountryEntityData.GetInvalidCountryEntity);
+            _countryRepositoryMock.Setup(catId => catId.GetCountryById(CountryEntityData.InvalidCountryEntity.Id))
+            .Returns(CountryEntityData.InvalidCountryEntity);
             _mapperMock.Setup(m => m.Map<Country>(It.IsAny<CountryEntity>()))
-            .Returns(CountryModelData.GetInvalidCountryModel);
+            .Returns(CountryModelData.InvalidCountryModel);
             //Act
-            var result = _countryService.GetCountryById(CountryEntityData.GetInvalidCountryEntity.Id);
+            var result = _countryService.GetCountryById(CountryEntityData.InvalidCountryEntity.Id);
             //Assert
             result.Id.Should().Be(0);
             result.Should().BeOfType<Country>();
-            result.Should().BeEquivalentTo(CountryModelData.GetInvalidCountryModel);
+            result.Should().BeEquivalentTo(CountryModelData.InvalidCountryModel);
         }
 
         [Fact]
         public void GetCountryByOwnerId_ValidOwnerId_ShouldReturnModel()
         {
             //Arrange
-            _countryRepositoryMock.Setup(catId => catId.GetCountryByOwnerId(CountryEntityData.GetCountryEntity.Id))
-            .Returns(CountryEntityData.GetCountryEntity);
+            _countryRepositoryMock.Setup(catId => catId.GetCountryByOwnerId(CountryEntityData.ValidCountryEntity.Id))
+            .Returns(CountryEntityData.ValidCountryEntity);
             _mapperMock.Setup(m => m.Map<Country>(It.IsAny<CountryEntity>()))
-            .Returns(CountryModelData.GetCountryModel);
+            .Returns(CountryModelData.ValidCountryModel);
             //Act
-            var result = _countryService.GetCountryByOwnerId(CountryEntityData.GetCountryEntity.Id);
+            var result = _countryService.GetCountryByOwnerId(CountryEntityData.ValidCountryEntity.Id);
             //Assert
             result.Should().NotBeNull();
             result.Should().BeOfType<Country>();
-            result.Should().BeEquivalentTo(CountryModelData.GetCountryModel);
+            result.Should().BeEquivalentTo(CountryModelData.ValidCountryModel);
         }
 
         [Fact]
         public void GetCountryByOwnerId_InvalidOwnerId_ShouldReturnModel()
         {
             //Arrange
-            _countryRepositoryMock.Setup(catId => catId.GetCountryByOwnerId(CountryEntityData.GetInvalidCountryEntity.Id))
-            .Returns(CountryEntityData.GetInvalidCountryEntity);
+            _countryRepositoryMock.Setup(catId => catId.GetCountryByOwnerId(CountryEntityData.InvalidCountryEntity.Id))
+            .Returns(CountryEntityData.InvalidCountryEntity);
             _mapperMock.Setup(m => m.Map<Country>(It.IsAny<CountryEntity>()))
-            .Returns(CountryModelData.GetInvalidCountryModel);
+            .Returns(CountryModelData.InvalidCountryModel);
             //Act
-            var result = _countryService.GetCountryByOwnerId(CountryEntityData.GetInvalidCountryEntity.Id);
+            var result = _countryService.GetCountryByOwnerId(CountryEntityData.InvalidCountryEntity.Id);
             //Assert
             result.Id.Should().Be(0);
             result.Should().BeOfType<Country>();
-            result.Should().BeEquivalentTo(CountryModelData.GetInvalidCountryModel);
+            result.Should().BeEquivalentTo(CountryModelData.InvalidCountryModel);
         }
 
         [Fact]
@@ -112,25 +112,25 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
         {
             // Arrange
             _mapperMock.Setup(m => m.Map<CountryEntity>(It.IsAny<Country>()))
-                .Returns(CountryEntityData.GetCountryEntity);
-            _countryRepositoryMock.Setup(r => r.CreateCountry(CountryEntityData.GetCountryEntity))
-                .Returns(CountryEntityData.GetCountryEntity);
+                .Returns(CountryEntityData.ValidCountryEntity);
+            _countryRepositoryMock.Setup(r => r.CreateCountry(CountryEntityData.ValidCountryEntity))
+                .Returns(CountryEntityData.ValidCountryEntity);
             _mapperMock.Setup(m => m.Map<Country>(It.IsAny<CountryEntity>()))
-                .Returns(CountryModelData.GetCountryModel);
-            int Id = CountryEntityData.GetCountryEntity.Id;
-            var countryToDelete = CountryEntityData.GetCountryEntity;
-            var countryModelToDelete = CountryModelData.GetCountryModel;
+                .Returns(CountryModelData.ValidCountryModel);
+            int Id = CountryEntityData.ValidCountryEntity.Id;
+            var countryToDelete = CountryEntityData.ValidCountryEntity;
+            var countryModelToDelete = CountryModelData.ValidCountryModel;
             _countryRepositoryMock.Setup(delId => delId.DeleteCountry(countryToDelete));
 
             // Act
             var result = _countryService.CreateCountry(countryModelToDelete);
-            _countryService.DeleteCountry(CountryEntityData.GetCountryEntity.Id);
+            _countryService.DeleteCountry(CountryEntityData.ValidCountryEntity.Id);
 
             // Assert
             _countryRepositoryMock.Verify(r => r.DeleteCountry(It.IsAny<CountryEntity>()));
             result.Should().NotBeNull();
             result.Should().BeOfType<Country>();
-            result.Should().BeEquivalentTo(CountryModelData.GetCountryModel);
+            result.Should().BeEquivalentTo(CountryModelData.ValidCountryModel);
         }
 
         [Fact]
@@ -138,39 +138,39 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
         {
             // Arrange
             _mapperMock.Setup(m => m.Map<CountryEntity>(It.IsAny<Country>()))
-                .Returns(CountryEntityData.GetCountryEntity);
-            _countryRepositoryMock.Setup(r => r.CreateCountry(CountryEntityData.GetCountryEntity))
-                .Returns(CountryEntityData.GetCountryEntity);
+                .Returns(CountryEntityData.ValidCountryEntity);
+            _countryRepositoryMock.Setup(r => r.CreateCountry(CountryEntityData.ValidCountryEntity))
+                .Returns(CountryEntityData.ValidCountryEntity);
             _mapperMock.Setup(m => m.Map<Country>(It.IsAny<CountryEntity>()))
-                .Returns(CountryModelData.GetCountryModel);
+                .Returns(CountryModelData.ValidCountryModel);
 
             // Act
-            var result = _countryService.CreateCountry(CountryModelData.GetCountryModel);
+            var result = _countryService.CreateCountry(CountryModelData.ValidCountryModel);
 
             // Assert
-            _countryRepositoryMock.Verify(r => r.CreateCountry(CountryEntityData.GetCountryEntity));
+            _countryRepositoryMock.Verify(r => r.CreateCountry(CountryEntityData.ValidCountryEntity));
             result.Should().NotBeNull();
             result.Should().BeOfType<Country>();
-            result.Should().BeEquivalentTo(CountryModelData.GetCountryModel);
+            result.Should().BeEquivalentTo(CountryModelData.ValidCountryModel);
         }
 
         [Fact]
         public async Task UpdateCountry_ValidCountryModel_ShouldReturnValidModel()
         {
             //Arrange
-            _mapperMock.Setup(m => m.Map<CountryEntity>(CountryModelData.UpdateCountryModel))
-            .Returns(CountryEntityData.UpdateCountryEntity);
-            _countryRepositoryMock.Setup(r => r.UpdateCountry(CountryEntityData.UpdateCountryEntity))
-           .Returns(CountryEntityData.UpdateCountryEntity);
-            _mapperMock.Setup(m => m.Map<Country>(CountryEntityData.UpdateCountryEntity))
-                .Returns(CountryModelData.UpdateCountryModel);
+            _mapperMock.Setup(m => m.Map<CountryEntity>(CountryModelData.ValidUpdateCountryModel))
+            .Returns(CountryEntityData.ValidUpdateCountryEntity);
+            _countryRepositoryMock.Setup(r => r.UpdateCountry(CountryEntityData.ValidUpdateCountryEntity))
+           .Returns(CountryEntityData.ValidUpdateCountryEntity);
+            _mapperMock.Setup(m => m.Map<Country>(CountryEntityData.ValidUpdateCountryEntity))
+                .Returns(CountryModelData.ValidUpdateCountryModel);
             //Act
-            var result = _countryService.UpdateCountry(CategoryModelData.UpdateCategoryModel.Id, CountryModelData.UpdateCountryModel);
+            var result = _countryService.UpdateCountry(CategoryModelData.UpdateCategoryModel.Id, CountryModelData.ValidUpdateCountryModel);
             //Assert
-            _countryRepositoryMock.Verify(r => r.UpdateCountry(CountryEntityData.UpdateCountryEntity));
+            _countryRepositoryMock.Verify(r => r.UpdateCountry(CountryEntityData.ValidUpdateCountryEntity));
             result.Should().NotBeNull();
             result.Should().BeOfType<Country>();
-            result.Should().NotBeEquivalentTo(CountryModelData.GetCountryModel);
+            result.Should().NotBeEquivalentTo(CountryModelData.ValidCountryModel);
         }
     }
 }

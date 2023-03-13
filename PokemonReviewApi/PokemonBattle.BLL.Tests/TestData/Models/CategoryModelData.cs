@@ -10,7 +10,7 @@ namespace PokemonBattle.BLL.Tests.TestData.Models
 {
     public static class CategoryModelData
     {
-        public static List<Category> GetCategories()
+        public static List<Category> ValidCategories()
         {
             var categoryList = new List<Category>
             {
@@ -27,11 +27,11 @@ namespace PokemonBattle.BLL.Tests.TestData.Models
             };
             return categoryList;
         }
-        internal static Category GetCategoryModel =
+        internal static Category ValidCategoryModel =
            new() { Id = 1, Name = "SteveJobbers" };
-        internal static Category GetInvalidCategoryModel =
+        internal static Category InvalidCategoryModel =
             new() { Id = 0, Name = "SteveGoblers" };
-        internal static Category UpdateCategoryModel =
+        internal static Category ValidUpdateCategoryModel =
            new() { Id = 3, Name = "Bozos" };
     }
 }

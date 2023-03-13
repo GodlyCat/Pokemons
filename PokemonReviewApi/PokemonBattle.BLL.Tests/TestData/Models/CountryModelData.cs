@@ -10,7 +10,7 @@ namespace PokemonBattle.BLL.Tests.TestData.Models
 {
     public static class CountryModelData
     {
-        public static List<Country> GetCountries()
+        public static List<Country> ValidCountries()
         {
             var categoryList = new List<Country>
             {
@@ -27,11 +27,11 @@ namespace PokemonBattle.BLL.Tests.TestData.Models
             };
             return categoryList;
         }
-        internal static Country GetCountryModel =
+        internal static Country ValidCountryModel =
             new() { Id = 1, Name = "Brazil" };
-        internal static Country GetInvalidCountryModel =
+        internal static Country InvalidCountryModel =
             new() { Id = 0, Name = "Germany" };
-        internal static Country UpdateCountryModel =
+        internal static Country ValidUpdateCountryModel =
             new() { Id = 3, Name = "Chile" };
     }
 }

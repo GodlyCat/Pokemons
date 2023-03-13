@@ -9,7 +9,7 @@ namespace PokemonBattle.BLL.Tests.TestData.Entities
 {
     public static class CountryEntityData
     {
-        public static List<CountryEntity> GetCountries()
+        public static List<CountryEntity> ValidCountries()
         {
             var categoryList = new List<CountryEntity>
             {
@@ -26,11 +26,11 @@ namespace PokemonBattle.BLL.Tests.TestData.Entities
             };
             return categoryList;
         }
-        internal static CountryEntity GetCountryEntity =
+        internal static CountryEntity ValidCountryEntity =
             new() { Id = 1, Name = "Brazil" };
-        internal static CountryEntity GetInvalidCountryEntity =
+        internal static CountryEntity InvalidCountryEntity =
             new() { Id = 0, Name = "Germany" };
-        internal static CountryEntity UpdateCountryEntity =
+        internal static CountryEntity ValidUpdateCountryEntity =
             new() { Id = 3, Name = "Chile" };
     }
 }

@@ -9,7 +9,7 @@ namespace PokemonBattle.BLL.Tests.TestData.Entities
 {
     public static class CategoryEntityData
     {
-        public static List<CategoryEntity> GetCategories()
+        public static List<CategoryEntity> ValidCategories()
         {
             var categoryList = new List<CategoryEntity>
             {
@@ -26,11 +26,11 @@ namespace PokemonBattle.BLL.Tests.TestData.Entities
             };
             return categoryList;
         }
-        internal static CategoryEntity GetCategoryEntity =
+        internal static CategoryEntity ValidCategoryEntity =
             new() { Id = 1, Name= "SteveJobbers"};
-        internal static CategoryEntity GetInvalidCategoryEntity =
+        internal static CategoryEntity InvalidCategoryEntity =
             new() { Id = 0, Name = "SteveGoblers" };
-        internal static CategoryEntity UpdateCategoryEntity =
+        internal static CategoryEntity ValidUpdateCategoryEntity =
             new() { Id = 3, Name = "Bozos" };
     }
 }
