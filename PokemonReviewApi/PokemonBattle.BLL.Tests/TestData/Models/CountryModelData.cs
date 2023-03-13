@@ -9,7 +9,7 @@ namespace PokemonBattle.BLL.Tests.TestData.Models
 {
     public static class CountryModelData
     {
-        public static List<Country> GetCategories()
+        public static List<Country> GetCountries()
         {
             var categoryList = new List<Country>
             {

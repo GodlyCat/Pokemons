@@ -9,7 +9,7 @@ namespace PokemonBattle.BLL.Tests.TestData.Entities
 {
     public static class CountryEntityData
     {
-        public static List<CountryEntity> GetCategories()
+        public static List<CountryEntity> GetCountries()
         {
             var categoryList = new List<CountryEntity>
             {

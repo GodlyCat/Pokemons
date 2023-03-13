@@ -32,9 +32,9 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
         public void CountryService_GetCountries_ReturnsListOfCountries()
         {
             _countryRepository.Setup(cat => cat.GetCountries())
-            .Returns(CountryEntityData.GetCategories());
+            .Returns(CountryEntityData.GetCountries());
             _mapper.Setup(m => m.Map<List<Country>>(It.IsAny<List<CountryEntity>>()))
-                .Returns(CountryModelData.GetCategories());
+                .Returns(CountryModelData.GetCountries());
             //Act
             var result = _countryService.GetCountries();
             //Assert
