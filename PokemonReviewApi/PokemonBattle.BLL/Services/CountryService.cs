@@ -1,11 +1,10 @@
-/*
 using AutoMapper;
-using PokemonBattleApi.Services.IServices;
-using PokemonBattleApi.Entities;
-using PokemonBattleApi.Models;
-using PokemonBattleApi.Interfaces;
+using PokemonBattle.BLL.Abstractions;
+using PokemonBattle.DAL.Entities;
+using PokemonBattle.BLL.Models;
+using PokemonBattle.DAL.Interfaces;
 
-namespace PokemonBattleApi.Services
+namespace PokemonBattle.BLL.Services
 {
     public class CountryService : ICountryService
     {
@@ -66,4 +65,3 @@ namespace PokemonBattleApi.Services
         }
     }
 }
-*/

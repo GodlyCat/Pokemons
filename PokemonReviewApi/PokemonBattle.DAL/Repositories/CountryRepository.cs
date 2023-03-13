@@ -1,10 +1,9 @@
-﻿/*
-using PokemonBattleApi.Data;
-using PokemonBattleApi.Entities;
-using PokemonBattleApi.Interfaces;
+﻿using PokemonBattle.DAL.Data;
+using PokemonBattle.DAL.Entities;
+using PokemonBattle.DAL.Interfaces;
 using System.Diagnostics.Metrics;
 
-namespace PokemonBattleApi.Repository
+namespace PokemonBattle.DAL.Repositories
 {
     public class CountryRepository : ICountryRepository
     {
@@ -55,4 +54,3 @@ namespace PokemonBattleApi.Repository
         }
     }
 }
-*/

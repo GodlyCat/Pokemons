@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PokemonBattle.DAL.Data;
 using PokemonBattle.DAL.Interfaces;
-//using PokemonBattleApi.Repository;
+//using PokemonBattle.DAL.Repository;
 //using PokemonBattleApi.Services;
 //using PokemonBattleApi.Services.IServices;
 using PokemonBattleApi;

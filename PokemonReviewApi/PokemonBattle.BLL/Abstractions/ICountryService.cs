@@ -1,6 +1,6 @@
-﻿/*using PokemonBattleApi.Models;
+﻿using PokemonBattle.BLL.Models;
 
-namespace PokemonBattleApi.Services.IServices
+namespace PokemonBattle.BLL.Abstractions
 {
     public interface ICountryService
     {
@@ -12,4 +12,3 @@ namespace PokemonBattleApi.Services.IServices
         void DeleteCountry(int countryId);
     }
 }
-*/

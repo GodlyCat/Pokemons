@@ -17,6 +17,7 @@ namespace PokemonBattle.BLL.DI
         public static void AddDependenciesBllLayer(this IServiceCollection services)
         {
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICountryService, CountryService>();
         }
     }
 }
