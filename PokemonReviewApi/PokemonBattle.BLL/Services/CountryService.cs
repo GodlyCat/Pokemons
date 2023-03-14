@@ -1,7 +1,7 @@
 using AutoMapper;
 using PokemonBattle.BLL.Abstractions;
-using PokemonBattle.DAL.Entities;
 using PokemonBattle.BLL.Models;
+using PokemonBattle.DAL.Entities;
 using PokemonBattle.DAL.Interfaces;
 
 namespace PokemonBattle.BLL.Services

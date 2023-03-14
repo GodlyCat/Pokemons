@@ -4,11 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using PokemonBattle.DAL.Data;
 using PokemonBattle.DAL.Interfaces;
 using PokemonBattle.DAL.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokemonBattle.DAL.DI
 {

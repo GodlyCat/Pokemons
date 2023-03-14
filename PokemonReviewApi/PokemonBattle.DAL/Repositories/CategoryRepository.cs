@@ -1,11 +1,6 @@
-﻿using PokemonBattle.DAL.Entities;
+﻿using PokemonBattle.DAL.Data;
+using PokemonBattle.DAL.Entities;
 using PokemonBattle.DAL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PokemonBattle.DAL.Data;
 
 namespace PokemonBattle.DAL.Repositories
 {

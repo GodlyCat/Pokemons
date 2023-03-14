@@ -1,5 +1,4 @@
 ﻿using PokemonBattle.DAL.Entities;
-using System.Diagnostics.Metrics;
 
 namespace PokemonBattle.DAL.Interfaces
 {

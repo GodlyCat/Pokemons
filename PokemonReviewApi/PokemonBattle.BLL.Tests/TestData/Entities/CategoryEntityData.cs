@@ -1,9 +1,4 @@
 ﻿using PokemonBattle.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokemonBattle.BLL.Tests.TestData.Entities
 {
@@ -27,7 +22,7 @@ namespace PokemonBattle.BLL.Tests.TestData.Entities
             return categoryList;
         }
         internal static CategoryEntity ValidCategoryEntity =
-            new() { Id = 1, Name= "SteveJobbers"};
+            new() { Id = 1, Name = "SteveJobbers" };
         internal static CategoryEntity InvalidCategoryEntity =
             new() { Id = 0, Name = "SteveGoblers" };
         internal static CategoryEntity ValidUpdateCategoryEntity =

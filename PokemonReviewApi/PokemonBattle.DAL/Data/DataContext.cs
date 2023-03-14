@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PokemonBattle.DAL.Constants;
 using PokemonBattle.DAL.Entities;
-using System.Diagnostics.Metrics;
 namespace PokemonBattle.DAL.Data
 {
     public class DataContext : DbContext

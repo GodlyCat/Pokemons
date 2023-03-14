@@ -1,10 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using PokemonBattle.BLL.DI;
-using PokemonBattle.DAL.Data;
-using PokemonBattle.DAL.Interfaces;
-using PokemonBattleApi;
-using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 

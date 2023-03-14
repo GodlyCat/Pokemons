@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using Moq;
+﻿using AutoMapper;
 using FluentAssertions;
+using Moq;
+using PokemonBattle.BLL.Abstractions;
 using PokemonBattle.BLL.Models;
 using PokemonBattle.BLL.Services;
-using PokemonBattle.DAL.Entities;
-using PokemonBattle.DAL.Interfaces;
-using PokemonBattle.BLL.Abstractions;
 using PokemonBattle.BLL.Tests.TestData.Entities;
 using PokemonBattle.BLL.Tests.TestData.Models;
+using PokemonBattle.DAL.Entities;
+using PokemonBattle.DAL.Interfaces;
 
 namespace PokemonBattle.BLL.Tests.ServicesTests
 {
@@ -132,7 +127,7 @@ namespace PokemonBattle.BLL.Tests.ServicesTests
             _mapperMock.Setup(m => m.Map<Category>(CategoryEntityData.ValidUpdateCategoryEntity))
                 .Returns(CategoryModelData.ValidUpdateCategoryModel);
             //Act
-            var result = _categoryService.UpdateCategory(CategoryModelData.ValidUpdateCategoryModel.Id,CategoryModelData.ValidUpdateCategoryModel);
+            var result = _categoryService.UpdateCategory(CategoryModelData.ValidUpdateCategoryModel.Id, CategoryModelData.ValidUpdateCategoryModel);
             //Assert
             _categoryRepositoryMock.Verify(r => r.UpdateCategory(CategoryEntityData.ValidUpdateCategoryEntity));
             result.Should().NotBeNull();

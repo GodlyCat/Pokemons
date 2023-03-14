@@ -1,7 +1,6 @@
 ﻿using PokemonBattle.DAL.Data;
 using PokemonBattle.DAL.Entities;
 using PokemonBattle.DAL.Interfaces;
-using System.Diagnostics.Metrics;
 
 namespace PokemonBattle.DAL.Repositories
 {

@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
+﻿using AutoMapper;
 using FluentAssertions;
-using AutoMapper;
-using PokemonBattle.DAL.Interfaces;
+using Moq;
 using PokemonBattle.BLL.Abstractions;
+using PokemonBattle.BLL.Models;
 using PokemonBattle.BLL.Services;
-using PokemonBattle.DAL.Repositories;
 using PokemonBattle.BLL.Tests.TestData.Entities;
 using PokemonBattle.BLL.Tests.TestData.Models;
 using PokemonBattle.DAL.Entities;
-using PokemonBattle.BLL.Models;
+using PokemonBattle.DAL.Interfaces;
 
 namespace PokemonBattle.BLL.Tests.ServicesTests
 {
