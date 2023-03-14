@@ -1,4 +1,10 @@
-﻿namespace PokemonBattle.BLL.DI
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using PokemonBattle.BLL.Abstractions;
+using PokemonBattle.BLL.Services;
+using PokemonBattle.DAL.DI;
+
+namespace PokemonBattle.BLL.DI
 {
     public static class DependencyInjection
     {

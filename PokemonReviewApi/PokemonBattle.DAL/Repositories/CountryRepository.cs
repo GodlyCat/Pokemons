@@ -1,4 +1,8 @@
-﻿namespace PokemonBattle.DAL.Repositories
+﻿using PokemonBattle.DAL.Data;
+using PokemonBattle.DAL.Entities;
+using PokemonBattle.DAL.Interfaces;
+
+namespace PokemonBattle.DAL.Repositories
 {
     public class CountryRepository : ICountryRepository
     {

@@ -1,4 +1,8 @@
-﻿namespace PokemonBattle.DAL.Data
+﻿using Microsoft.EntityFrameworkCore;
+using PokemonBattle.DAL.Constants;
+using PokemonBattle.DAL.Entities;
+
+namespace PokemonBattle.DAL.Data
 {
     public class DataContext : DbContext
     {

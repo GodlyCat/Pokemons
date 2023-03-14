@@ -1,4 +1,6 @@
-﻿namespace PokemonBattle.DAL.Interfaces
+﻿using PokemonBattle.DAL.Entities;
+
+namespace PokemonBattle.DAL.Interfaces
 {
     public interface ICountryRepository
     {
