@@ -1,3 +1,4 @@
+/*
 using AutoMapper;
 using PokemonBattle.BLL.Abstractions;
 using PokemonBattle.BLL.Models;
@@ -65,3 +66,4 @@ namespace PokemonBattle.BLL.Services
         }
     }
 }
+*/

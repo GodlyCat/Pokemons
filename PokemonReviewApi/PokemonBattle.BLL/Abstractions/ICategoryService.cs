@@ -1,6 +1,4 @@
-﻿using PokemonBattle.BLL.Models;
-
-namespace PokemonBattle.BLL.Abstractions
+﻿namespace PokemonBattle.BLL.Abstractions
 {
     public interface ICategoryService
     {

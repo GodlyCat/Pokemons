@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using PokemonBattle.BLL.Abstractions;
-using PokemonBattle.BLL.Models;
-using PokemonBattle.DAL.Entities;
-using PokemonBattle.DAL.Interfaces;
-
-namespace PokemonBattle.BLL.Services
+﻿namespace PokemonBattle.BLL.Services
 {
     public class CategoryService : ICategoryService
     {

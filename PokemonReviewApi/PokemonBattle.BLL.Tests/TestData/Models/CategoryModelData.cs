@@ -1,4 +1,4 @@
-﻿using PokemonBattle.BLL.Models;
+﻿using System.Collections.Generic;
 
 namespace PokemonBattle.BLL.Tests.TestData.Models
 {

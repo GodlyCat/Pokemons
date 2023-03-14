@@ -28,4 +28,8 @@
     <ProjectReference Include="..\PokemonBattle.BLL\PokemonBattle.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PokemonBattle.DAL\PokemonBattle.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

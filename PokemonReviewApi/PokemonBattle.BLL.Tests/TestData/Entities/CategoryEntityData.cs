@@ -1,4 +1,4 @@
-﻿using PokemonBattle.DAL.Entities;
+﻿using System.Collections.Generic;
 
 namespace PokemonBattle.BLL.Tests.TestData.Entities
 {

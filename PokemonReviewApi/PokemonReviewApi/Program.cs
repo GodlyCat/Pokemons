@@ -1,4 +1,3 @@
-using PokemonBattle.BLL.DI;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
