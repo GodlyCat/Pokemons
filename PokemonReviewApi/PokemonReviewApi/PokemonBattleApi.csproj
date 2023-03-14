@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\PokemonBattle.BLL\PokemonBattle.BLL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

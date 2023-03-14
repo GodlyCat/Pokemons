@@ -1,15 +1,10 @@
-﻿using PokemonBattle.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PokemonBattle.BLL.Tests.TestData.Entities
 {
     public static class CategoryEntityData
     {
-        public static List<CategoryEntity> GetCategories()
+        public static List<CategoryEntity> ValidCategories()
         {
             var categoryList = new List<CategoryEntity>
             {
@@ -26,9 +21,11 @@ namespace PokemonBattle.BLL.Tests.TestData.Entities
             };
             return categoryList;
         }
-        internal static CategoryEntity GetCategoryEntity =
-            new() { Id = 1, Name= "SteveJobbers"};
-        internal static CategoryEntity UpdateCategoryEntity =
+        internal static CategoryEntity ValidCategoryEntity =
+            new() { Id = 1, Name = "SteveJobbers" };
+        internal static CategoryEntity InvalidCategoryEntity =
+            new() { Id = 0, Name = "SteveGoblers" };
+        internal static CategoryEntity ValidUpdateCategoryEntity =
             new() { Id = 3, Name = "Bozos" };
     }
 }

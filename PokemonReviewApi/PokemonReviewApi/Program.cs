@@ -1,13 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using PokemonBattle.DAL.Data;
-using PokemonBattle.DAL.Interfaces;
-//using PokemonBattleApi.Repository;
-//using PokemonBattleApi.Services;
-//using PokemonBattleApi.Services.IServices;
-using PokemonBattleApi;
-using System.Text.Json.Serialization;
+using PokemonBattle.BLL.DI;
+
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 // Add services to the container.
 
@@ -22,11 +16,10 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());// mappe
 //builder.Services.AddScoped<ICountryService, CountryService>();
 ////builder.Services.AddScoped<IOwnerService, OwnerService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddDependenciesBllLayer(configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
-AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);// Without this timestamp it's stupid, postgres wants UTC type format
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,16 +1,10 @@
-﻿using PokemonBattle.BLL.Models;
-using PokemonBattle.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PokemonBattle.BLL.Tests.TestData.Models
 {
     public static class CategoryModelData
     {
-        public static List<Category> GetCategories()
+        public static List<Category> ValidCategories()
         {
             var categoryList = new List<Category>
             {
@@ -27,9 +21,11 @@ namespace PokemonBattle.BLL.Tests.TestData.Models
             };
             return categoryList;
         }
-        internal static Category GetCategoryModel =
+        internal static Category ValidCategoryModel =
            new() { Id = 1, Name = "SteveJobbers" };
-        internal static Category UpdateCategoryModel =
+        internal static Category InvalidCategoryModel =
+            new() { Id = 0, Name = "SteveGoblers" };
+        internal static Category ValidUpdateCategoryModel =
            new() { Id = 3, Name = "Bozos" };
     }
 }
